@@ -21,7 +21,7 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-This app is a task assignment from moore-wilson and not intended it's not considered production code.
+<strong>This app is a task assignment from moore-wilson and it's not considered production code.</strong>
 
 ## Learning Laravel
 
