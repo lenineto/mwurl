@@ -8,7 +8,7 @@
 
     <div class="flex-baseline title">
         <div>
-            <img src="/images/mw-logo-mobile.svg" width="200">
+            <img alt="mw-logo" src="/images/mw-logo-mobile.svg" width="200">
         </div>
         <div>
             <h2>This is a moore-wilson task assignment</h2>
@@ -65,6 +65,9 @@
         <h3>Nice to have</h3>
         <p>Custom Form Request objects used.</p>
         <p>Docblocks used throughout to denote use of methods, parameters, throws, and return types.</p>
+
+        <h3>Github Clone URL</h3>
+        <p>https://github.com/lenineto/mwurl.git</p>
 
     </div>
     <div class="spacer"></div>

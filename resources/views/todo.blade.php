@@ -9,23 +9,18 @@
     <div class="text">
         <h3>To Do List</h3>
         <ul>
-            <strike>
-                <li>Deploy the app on homestead</li>
-            </strike>
-            <strike>
-                <li>Lay out the skeleton of the app</li>
-            </strike>
-            <strike>
-                <li>Create the views using blade</li>
-            </strike>
-            <strike>
-                <li>Create the initial routes</li>
-            </strike>
-            <li>Create the initial content for all pages, including forms, buttons, etc (still without functionality</li>
-            <li>Point the subdomain url.lenineto.com to a server</li>
-            <li>Create the app on the server </li>
-            <li>Create and push the app to GIT</li>
-            <li>Deploy the app via GIT</li>
+            
+            <li><del>Deploy the app on homestead</del></li>
+            <li><del>Lay out the skeleton of the app</del></li>
+            <li><del>Create the views using blade</del></li>
+            <li><del>Create the initial routes</del></li>
+            <li><del>Create the initial content for all pages, including forms, buttons, etc (still without
+                    functionality</del></li>
+            <li><del>Point the subdomain url.lenineto.com to a server</del></li>
+            <li><del>Create the app on the server</del></li>
+            <li><del>Create and push the app on GitHub</del></li>
+            <li><del>Deploy the app on the server via git</del></li>
+            <li><del><code>Composer install</code> on the server</del></li>
             <li>Work on the code for the URL functionality</li>
             <li>Refactor my code</li>
             <li>Handle the database with migrations and seeds</li>

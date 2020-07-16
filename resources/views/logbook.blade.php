@@ -41,6 +41,14 @@
                 link to itself and it will dim the menu entry out.</li>
             <li>After finishing the about page (which is quite long), I realised we need a better menu. Don’t like the
                 idea of having to scroll all the way down to access the menu.</li>
+            <li>Redone the footer to have a sticky menu at the bottom (pure css)</li>
+            <li>Created the Github repo and pushed the code to it</li>
+            <li>Created the app on the live server and sync'ed from git</li>
+            <li>Created and set the .env file</li>
+            <li><code>Composer install</code> to initialise the laravel framework and install dependencies</li>
+            <li>Use <code>php artisan key:generate</code> to update .env</li>
+            <li>Tested the app, loading fine</li>
+            <li>Commit with all latest updates</li>
         </ul>
 
 @endsection
