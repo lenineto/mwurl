@@ -1,0 +1,22 @@
+@include('layouts.partials.default_header')
+
+<body>
+
+<div class="spacer"></div>
+
+<div class="content">
+    <img src="/images/@yield('icon')" height="250">
+</div>
+<div class="spacer"></div>
+
+<div class="title">
+    <h1>@yield('title')</h1>
+</div>
+
+<div class="spacer"></div>
+
+@include('layouts.partials.default_footer')
+
+
+</body>
+</html>
