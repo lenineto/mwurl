@@ -6,25 +6,26 @@
 
 @section('content')
     <div class="text">
-        <h3>15/07/2020</h3>
+        <h3>17/07/2020</h3>
         <ul>
-            <li>Deploying laravel app <span class="bug">failed</span>. Investigating.</li>
-            <li>App deployed <span class="fix">successfully</span>. Found the problem to be composer cache.
-                <code>composer clearcache</code> fixed the problem.</li>
-            <li>Done configuring .env</li>
-            <li>Installing phpunit via composer <span class="bug">failed</span>. Investigating.</li>
-            <li>Phpunit installed successfully. As it turns out I was just mislead by my recent training (Jeff always
-                install phpunit via composer but <code>laravel new &lt;app&gt;</code> already handles that.</li>
-            <li><span class="bug">Problem running phpunit</span>. Even the simplest test won't work. phpunit is failing
-                to find *any* classes, no
-            matter what. Investigating.</li>
-            <li>Still fighting with phpunit. I have checked .env, composer.json, phpunit.xml multiple times. Can't find
-            anything wrong with any of them. This should be working.</li>
-            <li>Finally <span class="issue">found the problem</span>! As it turns out, it's PHPStorm itself, nothing
-                wrong with app. I've decided to test phpunit on the command line and it worked. Investigating the issue
-                with PHPStorm now.</li>
-            <li><span class="fix">Problem fixed - woohoo!</span> Found the problem to be an actual bug in PHPStorm, so I've implemented a workaround
-                and sent a bug report to JetBrains. phpunit fully working from PHPStorm now.</li>
+            <li>Researched about Laravel's built-in user authentication and how to implement it</li>
+            <li>Installed laravel/ui via composer</li>
+            <li>Installed the basic views and routes for user auth via php artisan <code>php artisan ui vue --auth</code></li>
+            <li>Tested creating new user and logging in, <span class="fix">working</span></li>
+            <li>Restricted access on Dashboard to logged users, redirecting to login automatically. <span class="fix">Perfect.</span></li>
+            <li>Changed all laravel auth/views to be consistent with app visual styles</li>
+            <li>Noticed <span class="bug">users were not being created</span> when using my own view, still working with laravel's default view. Laravel is returning no errors.</li>
+            <li>Found out <span class="bug">PHPStorm is not properly debugging</span> with Laravel (working fine otherwise), so it's now tricky to trace what's causing this issue</li>
+            <li>Had to resort to using <code>dd ($data);</code> inside Auth\RegisterController.php and realised the email field was missing</li>
+            <li>Somehow during some copy & paste I ended up with the email field named "name" rather than "email". <span class="fix">Fixed!
+                    Registration now works fine.</span></li>
+            <li>Updated the views for auth/confirm, auth/email and auth/reset as well. A bit tricky but no sweat.</li>
+            <li>Create new layout partials auth_header.blade.php and auth_footer.blade.php</li>
+            <li>Inserted csrf-token into head and also loading app.js from there</li>
+            <li>Created a little logic on auth_footer using <code>Auth::check()</code> to show a LOGOUT menu to logged users</li>
+            <li>Logout links only show when accessing protected pages</li>
+            <li>Retested and everything is working fine. Email functionality has not been tested. I will test it on the live server later.</li>
+            <li>Commit new version to Github and update the server</li>
         </ul>
 
         <h3>16/07/2020</h3>
@@ -51,27 +52,28 @@
             <li>Commit with all latest updates</li>
         </ul>
 
-        <h3>17/07/2020</h3>
+        <h3>15/07/2020</h3>
         <ul>
-            <li>Researched about Laravel's built-in user authentication and how to implement it</li>
-            <li>Installed laravel/ui via composer</li>
-            <li>Installed the basic views and routes for user auth via php artisan <code>php artisan ui vue --auth</code></li>
-            <li>Tested creating new user and logging in, <span class="fix">working</span></li>
-            <li>Restricted access on Dashboard to logged users, redirecting to login automatically. <span class="fix">Perfect.</span></li>
-            <li>Changed all laravel auth/views to be consistent with app visual styles</li>
-            <li>Noticed <span class="bug">users were not being created</span> when using my own view, still working with laravel's default view. Laravel is returning no errors.</li>
-            <li>Found out <span class="bug">PHPStorm is not properly debugging</span> with Laravel (working fine otherwise), so it's now tricky to trace what's causing this issue</li>
-            <li>Had to resort to using <code>dd ($data);</code> inside Auth\RegisterController.php and realised the email field was missing</li>
-            <li>Somehow during some copy & paste I ended up with the email field named "name" rather than "email". <span class="fix">Fixed!
-                    Registration now works fine.</span></li>
-            <li>Updated the views for auth/confirm, auth/email and auth/reset as well. A bit tricky but no sweat.</li>
-            <li>Create new layout partials auth_header.blade.php and auth_footer.blade.php</li>
-            <li>Inserted csrf-token into head and also loading app.js from there</li>
-            <li>Created a little logic on auth_footer using <code>Auth::check()</code> to show a LOGOUT menu to logged users</li>
-            <li>Logout links only show when accessing protected pages</li>
-            <li>Retested and everything is working fine. Email functionality has not been tested. I will test it on the live server later.</li>
-            <li>Commit new version to Github and update the server</li>
+            <li>Deploying laravel app <span class="bug">failed</span>. Investigating.</li>
+            <li>App deployed <span class="fix">successfully</span>. Found the problem to be composer cache.
+                <code>composer clearcache</code> fixed the problem.</li>
+            <li>Done configuring .env</li>
+            <li>Installing phpunit via composer <span class="bug">failed</span>. Investigating.</li>
+            <li>Phpunit installed successfully. As it turns out I was just mislead by my recent training (Jeff always
+                install phpunit via composer but <code>laravel new &lt;app&gt;</code> already handles that.</li>
+            <li><span class="bug">Problem running phpunit</span>. Even the simplest test won't work. phpunit is failing
+                to find *any* classes, no
+                matter what. Investigating.</li>
+            <li>Still fighting with phpunit. I have checked .env, composer.json, phpunit.xml multiple times. Can't find
+                anything wrong with any of them. This should be working.</li>
+            <li>Finally <span class="issue">found the problem</span>! As it turns out, it's PHPStorm itself, nothing
+                wrong with app. I've decided to test phpunit on the command line and it worked. Investigating the issue
+                with PHPStorm now.</li>
+            <li><span class="fix">Problem fixed - woohoo!</span> Found the problem to be an actual bug in PHPStorm, so I've implemented a workaround
+                and sent a bug report to JetBrains. phpunit fully working from PHPStorm now.</li>
         </ul>
+
+
 
 @endsection
 
