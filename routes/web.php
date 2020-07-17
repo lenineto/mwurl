@@ -40,3 +40,8 @@ Route::post('/search/url', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+

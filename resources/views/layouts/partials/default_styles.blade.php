@@ -37,6 +37,10 @@
         box-shadow: 0px 12px 32px -16px #636b6f;
     }
 
+    .chk-input {
+
+    }
+
     .search-button button {
         font-family: 'Nunito', sans-serif;
         font-size: 22px;
@@ -45,15 +49,21 @@
         padding: 4px 20px;
         border-radius: 7px;
         border: 1px solid #636b6f;
-        box-shadow: 0px 12px 32px -15px #636b6f;
+        -webkit-box-shadow: 0px 12px 32px -15px #636b6f;
+           -moz-box-shadow: 0px 12px 32px -15px #636b6f;
+                box-shadow: 0px 12px 32px -15px #636b6f;
         margin-left: 10px;
         cursor: pointer;
     }
 
     .search-button:hover button {
-        margin-bottom: -4px;
-        box-shadow: 0px 12px 24px -10px #636b6f;
+        transform: translateY(4px);
+        -webkit-box-shadow: 0px 12px 24px -10px #636b6f;
+           -moz-box-shadow: 0px 12px 24px -10px #636b6f;
+                box-shadow: 0px 12px 24px -10px #636b6f;
     }
+
+    .hspace25 { margin-right: 25px; }
 
     .full-height {
         height: 100vh;
@@ -104,6 +114,12 @@
         font-size: 18px;
     }
 
+    .label {
+        text-align: justify;
+        font-size: 22px;
+        margin-left: 0;
+    }
+
     .title h1, .title h2, .title h3, .title h4, .title h5, .title h6 {
         margin-top: 0;
         padding-left: 2%;
@@ -116,6 +132,10 @@
 
     .spacer {
         height: 50px;
+    }
+
+    .line-spacer {
+        height: 25px;
     }
 
     code {
@@ -135,6 +155,13 @@
         text-transform: uppercase;
     }
 
+    .singlelink > span > a{
+        color: #636b6f;
+        font-weight: 600;
+        text-display: underlined;
+        text-decoration: none;
+    }
+
     .links .disabled_link {
         color: rgba(99, 107, 111, 0.43) !important;
     }
@@ -142,4 +169,80 @@
     .m-b-md {
         margin-bottom: 30px;
     }
+
+    .btn-large button { padding: 8px 100px; }
+    .btn-medium button { padding: 6px 60px; }
+    .btn-small button { padding: 4px 40px; }
+
+    /* Checkbox custom styles */
+
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: absolute;
+        left: -9999px;
+    }
+    [type="checkbox"]:not(:checked) + label,
+    [type="checkbox"]:checked + label {
+        position: relative;
+        padding-left: 1.95em;
+        cursor: pointer;
+    }
+
+    /* checkbox aspect */
+    [type="checkbox"]:not(:checked) + label:before,
+    [type="checkbox"]:checked + label:before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0;
+        width: 1.25em; height: 1.25em;
+        border: 2px solid #ccc;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+    }
+    /* checked mark aspect */
+    [type="checkbox"]:not(:checked) + label:after,
+    [type="checkbox"]:checked + label:after {
+        content: '\2713\0020';
+        position: absolute;
+        top: .15em; left: .22em;
+        font-size: 1.3em;
+        line-height: 0.8;
+        color: #09ad7e;
+        transition: all .2s;
+        font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+    }
+    /* checked mark aspect changes */
+    [type="checkbox"]:not(:checked) + label:after {
+        opacity: 0;
+        transform: scale(0);
+    }
+    [type="checkbox"]:checked + label:after {
+        opacity: 1;
+        transform: scale(1);
+    }
+    /* disabled checkbox */
+    [type="checkbox"]:disabled:not(:checked) + label:before,
+    [type="checkbox"]:disabled:checked + label:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+    }
+    [type="checkbox"]:disabled:checked + label:after {
+        color: #999;
+    }
+    [type="checkbox"]:disabled + label {
+        color: #aaa;
+    }
+    /* accessibility */
+    [type="checkbox"]:checked:focus + label:before,
+    [type="checkbox"]:not(:checked):focus + label:before {
+        border: 2px dotted blue;
+    }
+
+    /* hover style just for information */
+    label:hover:before {
+        border: 2px solid #4778d9!important;
+    }
+
 </style>

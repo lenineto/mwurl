@@ -51,5 +51,27 @@
             <li>Commit with all latest updates</li>
         </ul>
 
+        <h3>17/07/2020</h3>
+        <ul>
+            <li>Researched about Laravel's built-in user authentication and how to implement it</li>
+            <li>Installed laravel/ui via composer</li>
+            <li>Installed the basic views and routes for user auth via php artisan <code>php artisan ui vue --auth</code></li>
+            <li>Tested creating new user and logging in, <span class="fix">working</span></li>
+            <li>Restricted access on Dashboard to logged users, redirecting to login automatically. <span class="fix">Perfect.</span></li>
+            <li>Changed all laravel auth/views to be consistent with app visual styles</li>
+            <li>Noticed <span class="bug">users were not being created</span> when using my own view, still working with laravel's default view. Laravel is returning no errors.</li>
+            <li>Found out <span class="bug">PHPStorm is not properly debugging</span> with Laravel (working fine otherwise), so it's now tricky to trace what's causing this issue</li>
+            <li>Had to resort to using <code>dd ($data);</code> inside Auth\RegisterController.php and realised the email field was missing</li>
+            <li>Somehow during some copy & paste I ended up with the email field named "name" rather than "email". <span class="fix">Fixed!
+                    Registration now works fine.</span></li>
+            <li>Updated the views for auth/confirm, auth/email and auth/reset as well. A bit tricky but no sweat.</li>
+            <li>Create new layout partials auth_header.blade.php and auth_footer.blade.php</li>
+            <li>Inserted csrf-token into head and also loading app.js from there</li>
+            <li>Created a little logic on auth_footer using <code>Auth::check()</code> to show a LOGOUT menu to logged users</li>
+            <li>Logout links only show when accessing protected pages</li>
+            <li>Retested and everything is working fine. Email functionality has not been tested. I will test it on the live server later.</li>
+            <li>Commit new version to Github and update the server</li>
+        </ul>
+
 @endsection
 

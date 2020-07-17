@@ -36,4 +36,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The table to store the users
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The primary_key for the users table
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
 }

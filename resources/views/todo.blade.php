@@ -9,7 +9,7 @@
     <div class="text">
         <h3>To Do List</h3>
         <ul>
-            
+
             <li><del>Deploy the app on homestead</del></li>
             <li><del>Lay out the skeleton of the app</del></li>
             <li><del>Create the views using blade</del></li>
@@ -23,10 +23,11 @@
             <li><del><code>Composer install</code> on the server</del></li>
             <li>Work on the code for the URL functionality</li>
             <li>Refactor my code</li>
-            <li>Handle the database with migrations and seeds</li>
-            <li>Implement Laravel's user auth</li>
-            <li>Create the additional routes needed</li>
-            <li>Implement the user based functionalities, like creating and editing own URLs</li>
+            <li><del>Handle the database with migrations</del></li>
+            <li>Seed the database with testing data</li>
+            <li><del>Implement Laravel's user auth</del></li>
+            <li><del>Create the additional routes needed</del></li>
+            <li>Implement the user based functionalities, like creating and editing own URLs - ongoing</li>
             <li>Refactor my code</li>
             <li>Test the whole thing</li>
             <li>Publish the final version of the app</li>
