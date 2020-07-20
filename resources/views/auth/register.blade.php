@@ -5,7 +5,7 @@
 @section('icon', 'register.svg')
 
 @section('content')
-<div class="container">sssssss
+<div class="container">
     <div class="flex-center">
         <form method="POST" action="{{ route('register') }}">
             @csrf
