@@ -61,6 +61,7 @@ class UrlController extends Controller
          $url->url_token = $token;
          $url->created_at = Carbon::now()->format('Y-m-d H:i:s');
          $url->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+         $url->enabled = true;
          $url->save();
 
          return redirect()->route('list-urls');
