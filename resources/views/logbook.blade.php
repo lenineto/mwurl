@@ -6,6 +6,24 @@
 
 @section('content')
     <div class="text">
+        <h3>20/07/2020</h3>
+        <ul>
+            <li>Decided on a short URL formula to user our app's base URL (as set in .env APP_URL) with a 9 chars random,
+                slug safe string</li>
+            <li>Created the user seeder with automated values from faker class</li>
+            <li>Created the url seeder that creates new random long and short urls and add to the most recently added user</li>
+            <li>Using a try/catch inside a while loop to make sure a new random user is always added, just in case the newly
+                generated random user is already on the database</li>
+            <li>Implemented the URL listing feature (lists all URLs for the currently logged user)</li>
+            <li>Created the enable/disable URL functionality including DB updates, routes and controller functions</li>
+            <li>Refactored the code to properly load the CSS from a .css file instead of injecting from a blade template</li>
+            <li>Implemented the logged-user functionality with CRUD</li>
+            <li>Updated header partials to use version number on css and js files to help burst cache</li>
+            <li>Created the additional UrlController functions to handle new/update</li>
+            <li>Implemented delete URL functionality</li>
+            <li>Created the new routes to handle URL creation/update/delete</li>
+        </ul>
+
         <h3>17/07/2020</h3>
         <ul>
             <li>Researched about Laravel's built-in user authentication and how to implement it</li>

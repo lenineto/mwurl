@@ -25,4 +25,17 @@ class DashboardController extends Controller
     {
         return view('dashboard');
     }
+
+    public function addUrl()
+    {
+        return view('dashboard/add-url');
+    }
+
+    public function searchUrl() {
+        return view('dashboard/search-url');
+    }
+
+    public function listUrls() {
+        return view ('dashboard/list-urls');
+    }
 }

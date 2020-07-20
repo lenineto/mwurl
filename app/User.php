@@ -50,4 +50,11 @@ class User extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'id';
+
+    /**
+     * Set updated_at and created_at to be updated automatically on every call
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 }

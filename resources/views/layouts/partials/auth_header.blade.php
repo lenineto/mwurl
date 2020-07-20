@@ -12,9 +12,10 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/showhide.js?v=1.4') }}" defer></script>
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
-    @include('layouts.partials.default_styles')
+    <link rel="stylesheet" href="/css/main.css?v=1.4">
 
 </head>

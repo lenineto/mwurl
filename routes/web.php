@@ -37,11 +37,15 @@ Route::post('/search/url', function () {
     return view('results');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard/list-urls', 'UrlController@index')->name('list-urls');
+Route::get('/dashboard/disable-url', 'UrlController@disable')->name('disable-url');
+Route::get('/dashboard/enable-url', 'UrlController@enable')->name('enable-url');
+Route::get('/dashboard/create-url', 'UrlController@create')->name('create-url');
+Route::post('/dashboard/store-url', 'UrlController@store')->name('store-url');
+Route::get('/dashboard/edit-url', 'UrlController@edit')->name('edit-url');
+Route::post('/dashboard/update-url', 'UrlController@update')->name('update-url');
+Route::post('/dashboard/delete-url', 'UrlController@destroy')->name('delete-url');
 
