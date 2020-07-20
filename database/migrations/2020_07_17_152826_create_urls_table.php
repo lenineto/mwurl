@@ -16,8 +16,9 @@ class CreateUrlsTable extends Migration
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table ->string('short_url');
+            $table ->string('url_token');
             $table->foreignId('user_id');
+            $table->boolean('enabled');
             $table->timestamps();
         });
     }
