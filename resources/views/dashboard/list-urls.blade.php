@@ -30,7 +30,7 @@
                 @foreach($urls as $url)
                     <tr>
                         <td class="link">{{ $url->long_url }}</td>
-                        <td class="link"><a href="/dashboard/edit-url/?url={{ $url->id }}">{{ env('APP_URL') . '/' . $url->url_token }}</a></td>
+                        <td class="link"><a href="/dashboard/edit-url/?url={{ $url->id }}">{{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
                         <td>{{ $url->created_at }}</td>
                         <td>{{ $url->updated_at }}</td>
                         <td class="link">

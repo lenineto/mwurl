@@ -8,57 +8,59 @@
     <div class="text">
         <h3>21/07/2020</h3>
         <ul>
-            <li>Created the routes and views for authenticated users search</li>
-            <li>Created the routes and views for anonymous users search</li>
-            <li>Modified the URL model to include a scopeSearch function</li>
-            <li>Created a search() method on the URLController to load the search forms</li>
+            <li>Created the routes and views for authenticated users search.</li>
+            <li>Created the routes and views for anonymous users search.</li>
+            <li>Modified the URL model to include a scopeSearch function.</li>
+            <li>Created a search() method on the URLController to load the search forms.</li>
             <li>Created the code on show() within the URLController to find the URLs and load the search results</li>
             <li>Implemented the search functionality for authenticated users, with editing capabilities on the result set.</li>
             <li>Implemented the public search functionality for anonymous users, only showing enabled URLs.</li>
-            <li>Created the redirection Route that accepts /s/* and pass it to UrlController@redirect</li>
+            <li>Created the redirection Route that accepts /s/* and pass it to UrlController@redirect.</li>
             <li>Created the redirect() method on the URLController retrieves the proper URL and redirects to its original
-                (long) version</li>
+                (long) version.</li>
             <li>Created a invalid-url view and redirect to it in case the short URL doesn't exist or is disabled.</li>
+            <li>Modified the short url login to accept a custom user input and offer a random one as well.</li>
+            <li>Created a little JS that show/hides and sets/unsets the required parameter on the field.</li>
         </ul>
 
         <h3>20/07/2020</h3>
         <ul>
             <li>Decided on a short URL formula to user our app's base URL (as set in .env APP_URL) with a 9 chars random,
-                slug safe string</li>
-            <li>Created the user seeder with automated values from faker class</li>
-            <li>Created the url seeder that creates new random long and short urls and add to the most recently added user</li>
+                slug safe string.</li>
+            <li>Created the user seeder with automated values from faker class.</li>
+            <li>Created the url seeder that creates new random long and short urls and add to the most recently added user.</li>
             <li>Using a try/catch inside a while loop to make sure a new random user is always added, just in case the newly
-                generated random user is already on the database</li>
-            <li>Implemented the URL listing feature (lists all URLs for the currently logged user)</li>
-            <li>Created the enable/disable URL functionality including DB updates, routes and controller functions</li>
-            <li>Refactored the code to properly load the CSS from a .css file instead of injecting from a blade template</li>
-            <li>Implemented the logged-user functionality with CRUD</li>
-            <li>Updated header partials to use version number on css and js files to help burst cache</li>
-            <li>Created the additional UrlController functions to handle new/update</li>
-            <li>Implemented delete URL functionality</li>
-            <li>Created the new routes to handle URL creation/update/delete</li>
+                generated random user is already on the database.</li>
+            <li>Implemented the URL listing feature (lists all URLs for the currently logged user).</li>
+            <li>Created the enable/disable URL functionality including DB updates, routes and controller functions.</li>
+            <li>Refactored the code to properly load the CSS from a .css file instead of injecting from a blade template.</li>
+            <li>Implemented the logged-user functionality with CRUD.</li>
+            <li>Updated header partials to use version number on css and js files to help burst cache.</li>
+            <li>Created the additional UrlController functions to handle new/update.</li>
+            <li>Implemented delete URL functionality.</li>
+            <li>Created the new routes to handle URL creation/update/delete.</li>
         </ul>
 
         <h3>17/07/2020</h3>
         <ul>
-            <li>Researched about Laravel's built-in user authentication and how to implement it</li>
-            <li>Installed laravel/ui via composer</li>
-            <li>Installed the basic views and routes for user auth via php artisan <code>php artisan ui vue --auth</code></li>
-            <li>Tested creating new user and logging in, <span class="fix">working</span></li>
+            <li>Researched about Laravel's built-in user authentication and how to implement it.</li>
+            <li>Installed laravel/ui via composer.</li>
+            <li>Installed the basic views and routes for user auth via php artisan <code>php artisan ui vue --auth.</code></li>
+            <li>Tested creating new user and logging in, <span class="fix">working.</span></li>
             <li>Restricted access on Dashboard to logged users, redirecting to login automatically. <span class="fix">Perfect.</span></li>
-            <li>Changed all laravel auth/views to be consistent with app visual styles</li>
+            <li>Changed all laravel auth/views to be consistent with app visual styles.</li>
             <li>Noticed <span class="bug">users were not being created</span> when using my own view, still working with laravel's default view. Laravel is returning no errors.</li>
-            <li>Found out <span class="bug">PHPStorm is not properly debugging</span> with Laravel (working fine otherwise), so it's now tricky to trace what's causing this issue</li>
-            <li>Had to resort to using <code>dd ($data);</code> inside Auth\RegisterController.php and realised the email field was missing</li>
+            <li>Found out <span class="bug">PHPStorm is not properly debugging</span> with Laravel (working fine otherwise), so it's now tricky to trace what's causing this issue.</li>
+            <li>Had to resort to using <code>dd ($data);</code> inside Auth\RegisterController.php and realised the email field was missing.</li>
             <li>Somehow during some copy & paste I ended up with the email field named "name" rather than "email". <span class="fix">Fixed!
                     Registration now works fine.</span></li>
             <li>Updated the views for auth/confirm, auth/email and auth/reset as well. A bit tricky but no sweat.</li>
-            <li>Create new layout partials auth_header.blade.php and auth_footer.blade.php</li>
-            <li>Inserted csrf-token into head and also loading app.js from there</li>
-            <li>Created a little logic on auth_footer using <code>Auth::check()</code> to show a LOGOUT menu to logged users</li>
-            <li>Logout links only show when accessing protected pages</li>
+            <li>Create new layout partials auth_header.blade.php and auth_footer.blade.php.</li>
+            <li>Inserted csrf-token into head and also loading app.js from there.</li>
+            <li>Created a little logic on auth_footer using <code>Auth::check()</code> to show a LOGOUT menu to logged users.</li>
+            <li>Logout links only show when accessing protected pages.</li>
             <li>Retested and everything is working fine. Email functionality has not been tested. I will test it on the live server later.</li>
-            <li>Commit new version to Github and update the server</li>
+            <li>Commit new version to Github and update the server.</li>
         </ul>
 
         <h3>16/07/2020</h3>
@@ -75,14 +77,14 @@
                 link to itself and it will dim the menu entry out.</li>
             <li>After finishing the about page (which is quite long), I realised we need a better menu. Don’t like the
                 idea of having to scroll all the way down to access the menu.</li>
-            <li>Redone the footer to have a sticky menu at the bottom (pure css)</li>
-            <li>Created the Github repo and pushed the code to it</li>
-            <li>Created the app on the live server and sync'ed from git</li>
-            <li>Created and set the .env file</li>
-            <li><code>Composer install</code> to initialise the laravel framework and install dependencies</li>
-            <li>Use <code>php artisan key:generate</code> to update .env</li>
-            <li>Tested the app, loading fine</li>
-            <li>Commit with all latest updates</li>
+            <li>Redone the footer to have a sticky menu at the bottom (pure css).</li>
+            <li>Created the Github repo and pushed the code to it.</li>
+            <li>Created the app on the live server and sync'ed from git.</li>
+            <li>Created and set the .env file.</li>
+            <li><code>Composer install</code> to initialise the laravel framework and install dependencies.</li>
+            <li>Use <code>php artisan key:generate</code> to update .env.</li>
+            <li>Tested the app, loading fine.</li>
+            <li>Commit with all latest updates.</li>
         </ul>
 
         <h3>15/07/2020</h3>
@@ -90,7 +92,7 @@
             <li>Deploying laravel app <span class="bug">failed</span>. Investigating.</li>
             <li>App deployed <span class="fix">successfully</span>. Found the problem to be composer cache.
                 <code>composer clearcache</code> fixed the problem.</li>
-            <li>Done configuring .env</li>
+            <li>Done configuring .env.</li>
             <li>Installing phpunit via composer <span class="bug">failed</span>. Investigating.</li>
             <li>Phpunit installed successfully. As it turns out I was just mislead by my recent training (Jeff always
                 install phpunit via composer but <code>laravel new &lt;app&gt;</code> already handles that.</li>

@@ -35,7 +35,7 @@
                 </div>
                <div class="line-spacer"></div>
                <div class="flex-center showhide">
-                   <div id="urltoken" class="hspace25"><span>{{ env('APP_URL') . '/' }}</span><input class="text-input" type="text" name="url_token" value="{{ $url->url_token }}" required></div>
+                   <div id="urltoken" class="hspace25"><span>{{ env('APP_URL') . '/s/' }}</span><input class="text-input" type="text" name="url_token" value="{{ $url->url_token }}" required></div>
                     <div><input type="checkbox" name="enabled" id="enabled" {{ $url->enabled ? 'checked' : '' }}>
                         <label  class="label" for="enabled">
                             {{ __('Enabled') }}
