@@ -20,6 +20,7 @@ class CreateUrlsTable extends Migration
             $table->foreignId('user_id');
             $table->boolean('enabled');
             $table->timestamps();
+            $table->unique('long_url');
         });
     }
 
