@@ -21,19 +21,17 @@
             <li><del>Create and push the app on GitHub</del></li>
             <li><del>Deploy the app on the server via git</del></li>
             <li><del><code>Composer install</code> on the server</del></li>
-            <li>Work on the code for the URL functionality</li>
-            <li>Implement the Search URL functionality</li>
+            <li><del>Work on the code for the URL functionality</del></li>
+            <li><del>Implement the Search URL functionality</del></li>
             <li><del>Handle the database with migrations</del></li>
             <li><del>Seed the database with testing data</del></li>
             <li><del>Implement Laravel's user auth</del></li>
             <li><del>Create the additional routes needed</del></li>
             <li><del>Implement the user based functionalities, like creating, editing and deleting own URLs</del></li>
+            <li><del>Test the whole thing</del></li>
+            <li><del>Publish the first fully working version of the app</del></li>
             <li>Refactor my code</li>
-            <li>Test the whole thing - partially tested</li>
             <li>Publish the final version of the app</li>
         </ul>
-
-        <h3>Backlog</h3>
-        <p>Currently empty</p>
 
 @endsection

@@ -8,6 +8,6 @@
 
     <title>m-w URL shortener | @yield('title')</title>
 
-    <link rel="stylesheet" href="/css/main.css?v=1.2">
+    <link rel="stylesheet" href="/css/main.css?v=1.6">
 
 </head>

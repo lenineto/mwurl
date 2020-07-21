@@ -33,7 +33,7 @@
                 </div>
                <div class="line-spacer"></div>
                <div class="flex-center showhide">
-                   <div id="shorturl"><span>{{ env('APP_URL') . '/' }}</span><input class="text-input" type="text" name="short_url" placeholder="Type the desired short token" size="30" required></div>
+                   <div id="shorturl"><span>{{ env('APP_URL') . '/s/' }}</span><input class="text-input" type="text" name="url_token" placeholder="Type the desired short token" size="30" required></div>
                </div>
                <div class="line-spacer"></div>
                <div class="flex-center">
@@ -43,7 +43,7 @@
                    </label>
                </div>
 
-                   <div class="search-button"><button type="submit">Create URL</button></div>
+                   <div class="search-button"><button type="submit">{{ __('Create URL') }}</button></div>
                </div>
             </form>
 

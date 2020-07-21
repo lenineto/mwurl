@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Authenticate;
 use App\Url;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -44,10 +45,10 @@ class UrlController extends Controller
     public function store(Request $request)
     {
          $valid = $request->validate([
-           'long_url' => 'required|active_url'
+           'long_url' => 'required|active_url',
         ]);
 
-         if ( $request->short_url ) {
+         if ( $request->url_token ) {
              $token = Str::of($request->short_url)->replace('http:', '')->replace('https:', '')
                  ->replace('/', '')->replace('\\', '')->slug('');
 
@@ -69,14 +70,33 @@ class UrlController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resources.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $valid = $request->validate([
+            'search_url' => 'required|min:4',
+        ]);
+
+        $keyword = Str::slug($request->search_url, '');
+
+
+        if (Auth::check() && request()->routeIs('user-urls')) {
+
+
+            $urls = \App\Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
+
+              return view('dashboard/list-search')->withUrls($urls)->withToken($keyword);
+
+        } else {
+
+            $urls = \App\Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
+
+            return view('list-search')->withUrls($urls)->withToken($keyword);
+        }
     }
 
     /**
@@ -109,7 +129,7 @@ class UrlController extends Controller
         ]);
 
         if ( $request->url_token ) {
-            $token = Str::of($request->short_url)->replace('http:', '')->replace('https:', '')
+            $token = Str::of($request->url_token)->replace('http:', '')->replace('https:', '')
                 ->replace('/', '')->replace('\\', '')->slug('');
 
         } else {
@@ -156,7 +176,8 @@ class UrlController extends Controller
      *
      * @return bool|\Illuminate\Http\RedirectResponse
      */
-    public function disable(){
+    public function disable()
+    {
         if ($_REQUEST['url']) {
             $url = Url::find($_REQUEST['url']);
             $url->enabled = false;
@@ -171,7 +192,8 @@ class UrlController extends Controller
      *
      * @return bool|\Illuminate\Http\RedirectResponse
      */
-    public function enable(){
+    public function enable()
+    {
         if ($_REQUEST['url']) {
             $url = Url::find($_REQUEST['url']);
             $url->enabled = true;
@@ -180,4 +202,34 @@ class UrlController extends Controller
         }
         return false;
     }
+
+    /**
+     * Return different search forms for authenticated and anonymous users
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search()
+    {
+        if (Auth::check() && request()->routeIs('user-search')) {
+
+            return view ('dashboard/search-url');
+
+        } else {
+
+            return view ('/search-url');
+        }
+    }
+
+    public function redirect(Request $request)
+    {
+        $token = Str::of($request->path())->replaceFirst('s/', '');
+        $url = \App\Url::where('url_token', $token)->where('enabled', true)->first();
+        if ($url)
+            return redirect()->to($url->long_url);
+
+        return view ('invalid-url')->withToken($token);
+    }
+
+
+
 }

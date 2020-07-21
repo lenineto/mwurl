@@ -6,6 +6,21 @@
 
 @section('content')
     <div class="text">
+        <h3>21/07/2020</h3>
+        <ul>
+            <li>Created the routes and views for authenticated users search</li>
+            <li>Created the routes and views for anonymous users search</li>
+            <li>Modified the URL model to include a scopeSearch function</li>
+            <li>Created a search() method on the URLController to load the search forms</li>
+            <li>Created the code on show() within the URLController to find the URLs and load the search results</li>
+            <li>Implemented the search functionality for authenticated users, with editing capabilities on the result set.</li>
+            <li>Implemented the public search functionality for anonymous users, only showing enabled URLs.</li>
+            <li>Created the redirection Route that accepts /s/* and pass it to UrlController@redirect</li>
+            <li>Created the redirect() method on the URLController retrieves the proper URL and redirects to its original
+                (long) version</li>
+            <li>Created a invalid-url view and redirect to it in case the short URL doesn't exist or is disabled.</li>
+        </ul>
+
         <h3>20/07/2020</h3>
         <ul>
             <li>Decided on a short URL formula to user our app's base URL (as set in .env APP_URL) with a 9 chars random,

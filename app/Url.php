@@ -15,4 +15,9 @@ class Url extends Model
     ];
 
     public $timestamps = true;
+
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('url_token', 'LIKE', '%'.$keyword.'%')->orwhere('long_url', 'LIKE', '%'.$keyword.'%');
+    }
 }

@@ -318,3 +318,8 @@ label:hover:before {
     background-color: #f9d6d5;
     border-color: #f7c6c5;
 }
+
+a.newWindow[target="_blank"]::after {
+    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAf0lEQVQYlWP8//8/AzbAuOIfigQjw/K/KAL/I5gY4ZLVuzcy6Dr7gdhMcA0IjKro8t5NyApRAIoiXWd/kBwLkpWYJkEVgYRRTGQs2RCIRREYoFpt4ree4cymIJgiqC1gz8KthkkwMvitR3YKDKAoxKYAXeF/xhX/sCoAAwYGBgC30DDwWyG2mAAAAABJRU5ErkJggg==);
+    margin: 0px 3px 0px 5px;
+}
