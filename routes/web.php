@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,14 +10,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home');
-});
-
+/*
 Route::get('/logbook', function () {
     return view('logbook');
 });
+*/
 
 Route::get('/about', function () {
     return view('about');
@@ -39,6 +34,8 @@ Route::post('/search/url', function () {
 
 Auth::routes();
 
+Route::get('/', 'HomeController')->name('homepage');
+Route::get('/logbook', 'LogbookController')->name('logbook');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/dashboard/list-urls', 'UrlController@index')->name('list-urls');
 Route::get('/dashboard/disable-url', 'UrlController@disable')->name('disable-url');

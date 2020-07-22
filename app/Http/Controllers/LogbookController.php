@@ -6,16 +6,16 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 
-class HomeController extends Controller
+class LogbookController extends Controller
 {
     /**
-     * Show
+     * Show the Logbook page.
      *
      * @param Request $request
      * @return View
      */
     public function __invoke(Request $request)
     {
-        return view('home');
+        return view('logbook');
     }
 }

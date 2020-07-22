@@ -6,6 +6,8 @@
 
 @section('content')
     <div class="text">
+        <h3></h3>
+
         <h3>21/07/2020</h3>
         <ul>
             <li>Created the routes and views for authenticated users search.</li>

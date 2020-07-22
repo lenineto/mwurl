@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Authenticate;
 use App\Url;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use Auth;
+use Str;
 use Carbon\Carbon;
+use Illuminate\View\View;
 use phpDocumentor\Reflection\Location;
 
 class UrlController extends Controller
@@ -16,7 +19,7 @@ class UrlController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -29,7 +32,7 @@ class UrlController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -39,8 +42,8 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -72,8 +75,8 @@ class UrlController extends Controller
     /**
      * Display the specified resources.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function show(Request $request)
     {
@@ -102,8 +105,7 @@ class UrlController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function edit()
     {
@@ -118,9 +120,8 @@ class UrlController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function update(Request $request)
     {
@@ -155,8 +156,9 @@ class UrlController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request)
     {
@@ -174,7 +176,7 @@ class UrlController extends Controller
     /**
      * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
      *
-     * @return bool|\Illuminate\Http\RedirectResponse
+     * @return bool|RedirectResponse
      */
     public function disable()
     {
@@ -190,7 +192,7 @@ class UrlController extends Controller
     /**
      * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
      *
-     * @return bool|\Illuminate\Http\RedirectResponse
+     * @return bool|RedirectResponse
      */
     public function enable()
     {
@@ -206,7 +208,7 @@ class UrlController extends Controller
     /**
      * Return different search forms for authenticated and anonymous users
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function search()
     {
