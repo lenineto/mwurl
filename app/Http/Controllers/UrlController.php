@@ -220,6 +220,12 @@ class UrlController extends Controller
         }
     }
 
+    /**
+     * Redirect to the external URL or render the error page
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function redirect(Request $request)
     {
         $token = Str::of($request->path())->replaceFirst('s/', '');

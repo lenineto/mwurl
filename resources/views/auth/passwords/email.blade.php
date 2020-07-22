@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
 
-    @if ( !session('status'))
+    @if ( session('status'))
         <div class="flex-center">
             <div role="alert">
                 <h3><span class="fix">{{ session('status') }}</span></h3>
