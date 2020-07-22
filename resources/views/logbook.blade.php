@@ -6,6 +6,10 @@
 
 @section('content')
     <div class="text">
+        <h3>22/07/2020</h3>
+        <ul>
+            <li>Branch &ldquo;v2.0&rdquo; added. Please follow new updates on the new branch.</li>
+        </ul>
         <h3>21/07/2020</h3>
         <ul>
             <li>Created the routes and views for authenticated users search.</li>
