@@ -22,9 +22,14 @@
 
 
     <div class="flex-center">
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('create-url') }}'">New Short URL</button></div>
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('list-urls') }}'">List My URLs</button></div>
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('user-search') }}'">Search for URL</button></div>
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('create-url') }}'">
+            New Short URL</button></div>
+
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('list-urls') }}'">
+            List My URLs</button></div>
+
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('user-search') }}'">
+            Search for URL</button></div>
     </div>
 
 @endif

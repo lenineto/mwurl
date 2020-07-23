@@ -26,11 +26,13 @@
                 <div class="flex-center">
                     <input id="_urltoken" type="hidden" value="{{ $url->url_token }}">
                     <input name="id" type="hidden" value="{{ $url->id }}">
-                    <div><input class="text-input" type="text" name="long_url" size="40" value="{{ $url->long_url }}" required></div>
+                    <div><input class="text-input" type="text" name="long_url" size="40"
+                        value="{{ $url->long_url }}" required></div>
                 </div>
                <div class="line-spacer"></div>
                <div class="flex-center showhide">
-                   <div id="urltoken" class="hspace25"><span>{{ env('APP_URL') . '/s/' }}</span><input class="text-input" type="text" name="url_token" value="{{ $url->url_token }}" required></div>
+                   <div id="urltoken" class="hspace25"><span>{{ env('APP_URL') . '/s/' }}</span>
+                       <input class="text-input" type="text" name="url_token" value="{{ $url->url_token }}" required></div>
                     <div><input type="checkbox" name="enabled" id="enabled" {{ $url->enabled ? 'checked' : '' }}>
                         <label  class="label" for="enabled">
                             {{ __('Enabled') }}
@@ -39,7 +41,9 @@
                </div>
                <div class="line-spacer"></div>
                <div class="flex-center">
-               <div class="hspace25"><input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} onclick="showhide('urltoken')">
+               <div class="hspace25"><input type="checkbox" name="remember" id="remember"
+                    {{ old('remember') ? 'checked' : '' }} onclick="showhide('urltoken')">
+
                    <label  class="label" for="remember">
                        {{ __('Random URL') }}
                    </label>

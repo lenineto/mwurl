@@ -14,6 +14,7 @@ Route::get('/about', AboutController::class)->name('about');
 Route::get('/todo', TodoController::class)->name('todo');
 Route::get('/search', [UrlController::class, 'search'])->name('search');
 
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/create-url', [UrlController::class, 'create'])->name('create-url');
 Route::get('/dashboard/list-urls', [UrlController::class, 'index'])->name('list-urls');
@@ -23,14 +24,17 @@ Route::get('/dashboard/edit-url', [UrlController::class, 'edit'])->name('edit-ur
 Route::get('/dashboard/disable-url', [UrlController::class, 'disable'])->name('disable-url');
 Route::get('/dashboard/enable-url', [UrlController::class, 'enable'])->name('enable-url');
 
-Route::get('/s/{token}', [UrlController::class, 'redirect'])->name('redirection');
-
 Route::post('/search', [UrlController::class, 'show'])->name('public-urls');
 
 Route::post('/dashboard/store-url', [UrlController::class, 'store'])->name('store-url');
 Route::post('/dashboard/update-url', [UrlController::class, 'update'])->name('update-url');
 Route::post('/dashboard/delete-url', [UrlController::class, 'destroy'])->name('delete-url');
 Route::post('/dashboard/search', [UrlController::class, 'show'])->name('user-urls');
+
+/**
+ * External redirection route
+ */
+Route::get('/s/{token}', [UrlController::class, 'redirect'])->name('redirection');
 
 /**
  * Defining the namespace to get Laravel's default auth routes working

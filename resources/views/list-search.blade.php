@@ -21,7 +21,9 @@
             @foreach($urls as $url)
                 <tr>
                     <td>{{ $url->long_url }}</td>
-                    <td class="link"><a class="newWindow" href="{{ env('APP_URL') . '/s/' . $url->url_token }}" target="_blank">{{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
+                    <td class="link"><a class="newWindow" href="{{ env('APP_URL') . '/s/' . $url->url_token }}"
+                        target="_blank">{{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
+
                     <td>{{ $url->created_at }}</td>
                     <td>{{ $url->updated_at }}</td>
                 </tr>

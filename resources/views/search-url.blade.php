@@ -11,7 +11,9 @@
         <form method="post" action="{{ route('public-urls') }}">
             @csrf
             <div class="flex-center">
-                <div><input class="text-input" type="text" name="search_url" placeholder="Type any part of an URL here to search.." size="60" required></div>
+                <div><input class="text-input" type="text" name="search_url"
+                    placeholder="Type any part of an URL here to search.." size="60" required></div>
+
             </div>
             <div class="line-spacer"></div>
             <div class="flex-center">
