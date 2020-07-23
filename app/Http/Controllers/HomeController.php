@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -11,10 +10,9 @@ class HomeController extends Controller
     /**
      * Show
      *
-     * @param Request $request
      * @return View
      */
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         return view('home');
     }

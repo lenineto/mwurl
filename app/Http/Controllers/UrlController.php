@@ -1,31 +1,32 @@
-<?php /** @noinspection ALL */
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
+/** @noinspection PhpUndefinedClassInspection */
 
 namespace App\Http\Controllers;
 
 use App\Url;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Auth;
-use Str;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
-use phpDocumentor\Reflection\Location;
 
 class UrlController extends Controller
 {
     /**
      * Display the list of URLs
      *
-     * @return View
+     * @return View|false
      */
     public function index()
     {
-        $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
-        return view('dashboard/list-urls')->withUrls($urls);
+        if (Auth::check()) {
+            $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
+            return view('dashboard/list-urls')->withUrls($urls);
+        }
+        return false;
     }
+
 
     /**
      * Show the form for creating a new URL
@@ -38,14 +39,14 @@ class UrlController extends Controller
     }
 
     /**
-     * Store a newly created URL in the DB
+     * Store a newly created URL into the DB
      *
      * @param Request $request
      * @return RedirectResponse
      */
     public function store(Request $request)
     {
-         $valid = $request->validate([
+         $request->validate([
            'long_url' => 'required|active_url',
         ]);
 
@@ -57,48 +58,44 @@ class UrlController extends Controller
              $token = Str::slug(Str::random(9), '-');
          }
 
-         $url = new Url();
-         $url->user_id = Auth::user()->id;
-         $url->long_url = $request->long_url;
-         $url->url_token = $token;
-         $url->enabled = true;
-         $url->save();
+        $url = Url::firstOrCreate(
+          ['url_token' => $token],
+          [
+              'user_id' => Auth::user()->id,
+              'long_url' => $request->long_url,
+              'enabled' => true
+          ]
+        );
 
-         return redirect()->route('list-urls');
+         return redirect()->route('list-urls')->withUrl($url);
     }
 
     /**
-     * Display the specified resources.
+     * Display the matching URLs
      *
      * @param Request $request
-     * @return Response
+     * @return View
      */
     public function show(Request $request)
     {
-        $valid = $request->validate([
+        $request->validate([
             'search_url' => 'required|min:4',
         ]);
 
         $keyword = Str::slug($request->search_url, '');
 
-
         if (Auth::check() && request()->routeIs('user-urls')) {
-
-
-            $urls = \App\Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
-
-              return view('dashboard/list-search')->withUrls($urls)->withToken($keyword);
+            $urls = Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
+            return view('dashboard/list-search')->withUrls($urls)->withToken($keyword);
 
         } else {
-
-            $urls = \App\Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
-
+            $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
             return view('list-search')->withUrls($urls)->withToken($keyword);
         }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Look the URL up and show the form for editing it, if found
      *
      * @return RedirectResponse
      */
@@ -106,21 +103,25 @@ class UrlController extends Controller
     {
         if ($_REQUEST['url']) {
             $url = Url::find($_REQUEST['url']);
-            if ($url)
+
+            if ($url) {
                 return view('dashboard/edit-url')->withUrl($url);
+            }
         }
         return redirect()->route('list-urls');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the URL and redirects to the URL list
      *
      * @param Request $request
      * @return RedirectResponse
+     * @noinspection PhpUndefinedFieldInspection
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function update(Request $request)
     {
-        $valid = $request->validate([
+        $request->validate([
             'long_url' => 'required|active_url'
         ]);
 
@@ -133,35 +134,33 @@ class UrlController extends Controller
         }
 
         $url = Url::find($request->id);
-        if (!$url)
-            return redirect()->route('list-urls');
 
-        $url->enabled = false;
-        $url->long_url = $request->long_url;
-        $url->url_token = $token;
-        $url->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-        if ($request->enabled)
-            $url->enabled = true;
-        $url->save();
+        if ($url) {
+            $url->enabled = false;
+            $url->long_url = $request->long_url;
+            $url->url_token = $token;
+            if ($request->enabled) {
+                $url->enabled = true;
+            }
+            $url->save();
+        }
 
         return redirect()->route('list-urls');
-
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the URL and redirect to the URL list
      *
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Exception
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function destroy(Request $request)
     {
         $url = Url::find($request->id);
-        if (! $url)
-            return redirect()->route('list-urls');
-
-        $url->delete();
+        if ($url) {
+            $url->delete();
+        }
 
         return redirect()->route('list-urls');
     }
@@ -169,7 +168,7 @@ class UrlController extends Controller
     /**
      * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
      *
-     * @return bool|RedirectResponse
+     * @return false|RedirectResponse
      */
     public function disable()
     {
@@ -185,7 +184,7 @@ class UrlController extends Controller
     /**
      * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
      *
-     * @return bool|RedirectResponse
+     * @return false|RedirectResponse
      */
     public function enable()
     {
@@ -206,11 +205,9 @@ class UrlController extends Controller
     public function search()
     {
         if (Auth::check() && request()->routeIs('user-search')) {
-
             return view ('dashboard/search-url');
 
         } else {
-
             return view ('/search-url');
         }
     }
@@ -220,7 +217,7 @@ class UrlController extends Controller
      *
      * @param Request $request
      * @param String $token
-     * @return RedirectResponse
+     * @return RedirectResponse|View
      */
     public function redirect(Request $request, String $token)
     {

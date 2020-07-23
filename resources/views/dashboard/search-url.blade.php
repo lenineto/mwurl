@@ -6,13 +6,8 @@
 
 @section('content')
 
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-
     @if ( Auth::check() )
+        <!--suppress HtmlFormInputWithoutLabel -->
         <h3>Search Your URLs</h3>
 
         @if ($errors->any())

@@ -6,13 +6,6 @@
 
 @section('content')
 
-
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-
     @if ( Auth::check() )
         <h3>URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
 
@@ -31,7 +24,7 @@
                 @foreach($urls as $url)
                     <tr>
                         <td class="link">{{ $url->long_url }}</td>
-                        <td class="link"><a href="/dashboard/edit-url/?url={{ $url->id }}">{{ env('APP_URL') . '/' . $url->url_token }}</a></td>
+                        <td class="link"><a href="{{ route('edit-url') }}/?url={{ $url->id }}">{{ env('APP_URL') . '/' . $url->url_token }}</a></td>
                         <td>{{ $url->created_at }}</td>
                         <td>{{ $url->updated_at }}</td>
                         <td class="link">

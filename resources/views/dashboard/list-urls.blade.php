@@ -6,11 +6,12 @@
 
 @section('content')
 
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
+    @isset($success)
+        <div class="flex-center" role="alert">
+            <div><p>{{ $success }}</p></div>
         </div>
-    @endif
+        @Sess
+    @endisset
 
     @if ( Auth::check() )
         <h3>Registered URLs</h3>
@@ -30,7 +31,7 @@
                 @foreach($urls as $url)
                     <tr>
                         <td class="link">{{ $url->long_url }}</td>
-                        <td class="link"><a href="/dashboard/edit-url/?url={{ $url->id }}">{{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
+                        <td class="link"><a href=" {{ route('edit-url') }}/?url={{ $url->id }}">{{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
                         <td>{{ $url->created_at }}</td>
                         <td>{{ $url->updated_at }}</td>
                         <td class="link">

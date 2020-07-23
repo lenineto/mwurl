@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="text">
+        <h3>23/07/2020</h3>
+        <ul>
+            <li><strong>Tasks are now handled in Jira, I will only include here anything that is not there.</strong></li>
+        </ul>
+
         <h3>22/07/2020</h3>
         <ul>
             <li>Fixed the email problem affecting password resets (.env file updated to use mailhog on dev).</li>

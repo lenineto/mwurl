@@ -6,13 +6,8 @@
 
 @section('content')
 
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-
     @if ( Auth::check() )
+        <!--suppress HtmlFormInputWithoutLabel -->
         <h3>Create a short URL</h3>
 
         @if ($errors->any())
