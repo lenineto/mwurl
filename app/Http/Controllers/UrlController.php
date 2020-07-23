@@ -51,7 +51,7 @@ class UrlController extends Controller
         ]);
 
          if ( $request->url_token ) {
-             $token = Str::of($request->short_url)->replace('http:', '')->replace('https:', '')
+             $token = Str::of($request->url_token)->replace('http:', '')->replace('https:', '')
                  ->replace('/', '')->replace('\\', '')->slug('');
 
          } else {
