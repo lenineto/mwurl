@@ -5,10 +5,6 @@
 @section('icon', 'register.svg')
 
 @section('content')
-    @if (!session('status'))
-        <h3>{{ __('Password reset email sent!') }}</h3>
-        <p>{{ __('An email was sent to your email with a link to reset your password. Please check your inbox)' }}.</p>
-    @else
         <div class="flex-center">
             <form method="POST" action="{{ route('password.update') }}">
                 @csrf
@@ -39,5 +35,4 @@
                 </div>
             </form>
         </div>
-    @endif
 @endsection

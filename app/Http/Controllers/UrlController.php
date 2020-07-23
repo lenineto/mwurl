@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Http\Controllers;
 
@@ -17,22 +17,20 @@ use phpDocumentor\Reflection\Location;
 class UrlController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the list of URLs
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
-        $urls = \App\Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
-
+        $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
         return view('dashboard/list-urls')->withUrls($urls);
-
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new URL
      *
-     * @return Application|Factory|View
+     * @return View
      */
     public function create()
     {
@@ -40,7 +38,7 @@ class UrlController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created URL in the DB
      *
      * @param Request $request
      * @return RedirectResponse
@@ -63,13 +61,10 @@ class UrlController extends Controller
          $url->user_id = Auth::user()->id;
          $url->long_url = $request->long_url;
          $url->url_token = $token;
-         $url->created_at = Carbon::now()->format('Y-m-d H:i:s');
-         $url->updated_at = Carbon::now()->format('Y-m-d H:i:s');
          $url->enabled = true;
          $url->save();
 
          return redirect()->route('list-urls');
-
     }
 
     /**
@@ -169,8 +164,6 @@ class UrlController extends Controller
         $url->delete();
 
         return redirect()->route('list-urls');
-
-
     }
 
     /**
@@ -208,7 +201,7 @@ class UrlController extends Controller
     /**
      * Return different search forms for authenticated and anonymous users
      *
-     * @return Application|Factory|View
+     * @return View
      */
     public function search()
     {
@@ -226,18 +219,18 @@ class UrlController extends Controller
      * Redirect to the external URL or render the error page
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param String $token
+     * @return RedirectResponse
      */
-    public function redirect(Request $request)
+    public function redirect(Request $request, String $token)
     {
-        $token = Str::of($request->path())->replaceFirst('s/', '');
-        $url = \App\Url::where('url_token', $token)->where('enabled', true)->first();
-        if ($url)
-            return redirect()->to($url->long_url);
+        $queryString = $request->server->get('QUERY_STRING') ? '?' . $request->server->get('QUERY_STRING') : '';
+
+        $url = Url::where('url_token', $token)->where('enabled', true)->first();
+        if ($url)  {
+            return redirect()->to($url->long_url . $queryString);
+        }
 
         return view ('invalid-url')->withToken($token);
     }
-
-
-
 }

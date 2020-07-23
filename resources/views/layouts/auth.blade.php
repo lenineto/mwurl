@@ -11,9 +11,9 @@
     <h1>@yield('title')</h1>
 </div>
 
-    <div class="content">
-        @yield('content')
-    </div>
+<div class="content">
+    @yield('content')
+</div>
 
 
 @include('layouts.partials.auth_footer')
