@@ -31,16 +31,16 @@
                 @foreach($urls as $url)
                     <tr>
                         <td class="link">{{ $url->long_url }}</td>
-                        <td class="link"><a href=" {{ route('edit-url') }}/?url={{ $url->id }}">
+                        <td class="link"><a href=" {{ route('url.edit', $url->id) }}">
                             {{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
 
                         <td>{{ $url->created_at }}</td>
                         <td>{{ $url->updated_at }}</td>
                         <td class="link">
                             @if($url->enabled)
-                                <a href="{{ route('disable-url') }}/?url={{ $url->id }}">Enabled</a>
+                                <a href="{{ route('url.disable', $url->id) }}">Enabled</a>
                             @else
-                                <a href="{{ route('enable-url') }}/?url={{ $url->id }}">Disabled</a>
+                                <a href="{{ route('url.enable', $url->id) }}">Disabled</a>
                             @endif
                         </td>
                     </tr>

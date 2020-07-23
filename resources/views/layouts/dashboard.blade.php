@@ -3,7 +3,7 @@
 <body>
 <div id="app" class="content">
     <div class="spacer"></div>
-    <img src="/images/@yield('icon')" height="250">
+    <img src="/images/@yield('icon')" height="250" alt="m-w URL shortener">
 </div>
 <div class="spacer"></div>
 
@@ -22,13 +22,13 @@
 
 
     <div class="flex-center">
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('create-url') }}'">
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('url.create') }}'">
             New Short URL</button></div>
 
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('list-urls') }}'">
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('urls.list') }}'">
             List My URLs</button></div>
 
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('user-search') }}'">
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('url.search.private') }}'">
             Search for URL</button></div>
     </div>
 

@@ -43,6 +43,7 @@ class UrlController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function store(Request $request)
     {
@@ -67,7 +68,7 @@ class UrlController extends Controller
           ]
         );
 
-         return redirect()->route('list-urls')->withUrl($url);
+         return redirect()->route('urls.list.private')->withUrl($url);
     }
 
     /**
@@ -75,6 +76,7 @@ class UrlController extends Controller
      *
      * @param Request $request
      * @return View
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function show(Request $request)
     {
@@ -84,31 +86,41 @@ class UrlController extends Controller
 
         $keyword = Str::slug($request->search_url, '');
 
-        if (Auth::check() && request()->routeIs('user-urls')) {
+        /**
+         * Handle search for authenticated user
+         */
+        if (Auth::check() && request()->routeIs('urls.list.private')) {
             $urls = Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
-            return view('dashboard/list-search')->withUrls($urls)->withToken($keyword);
+            if ($urls) {
+                return view('dashboard.list-search')->withUrls($urls)->withToken($keyword);
+            }
+            return view('dashboard.search-url');
+        }
 
-        } else {
-            $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
+        /**
+         * Handle search for anonymous user
+         */
+        $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
+        if ($urls) {
             return view('list-search')->withUrls($urls)->withToken($keyword);
         }
+        return view('search-url');
+
     }
 
     /**
      * Look the URL up and show the form for editing it, if found
      *
-     * @return RedirectResponse
+     * @param int $id
+     * @return View
      */
-    public function edit()
+    public function edit(int $id)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
-
-            if ($url) {
-                return view('dashboard/edit-url')->withUrl($url);
-            }
+        $url = Url::find($id);
+        if ($url) {
+            return view('dashboard.edit-url')->withUrl($url);
         }
-        return redirect()->route('list-urls');
+        return view('dashboard.list-urls');
     }
 
     /**
@@ -145,7 +157,7 @@ class UrlController extends Controller
             $url->save();
         }
 
-        return redirect()->route('list-urls');
+        return redirect()->route('urls.list.private');
     }
 
     /**
@@ -162,37 +174,39 @@ class UrlController extends Controller
             $url->delete();
         }
 
-        return redirect()->route('list-urls');
+        return redirect()->route('urls.list.private');
     }
 
     /**
-     * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
+     * Retrieve URL by id and enable it
      *
-     * @return false|RedirectResponse
+     * @param int $id
+     * @return RedirectResponse|false
      */
-    public function disable()
+    public function disable(int $id)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
+        $url = Url::find($id);
+        if ($url) {
             $url->enabled = false;
             $url->save();
-            return redirect()->route('list-urls');
+            return redirect()->route('urls.list.private');
         }
         return false;
     }
 
     /**
-     * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
+     * Retrieve URL by id and disable it
      *
-     * @return false|RedirectResponse
+     * @param int $id
+     * @return RedirectResponse|false
      */
-    public function enable()
+    public function enable(int $id)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
+        $url = Url::find($id);
+        if ($url) {
             $url->enabled = true;
             $url->save();
-            return redirect()->route('list-urls');
+            return redirect()->route('urls.list.private');
         }
         return false;
     }
@@ -200,16 +214,14 @@ class UrlController extends Controller
     /**
      * Return different search forms for authenticated and anonymous users
      *
-     * @return View
+     * @return View|false
      */
     public function search()
     {
-        if (Auth::check() && request()->routeIs('user-search')) {
+        if (Auth::check() && request()->routeIs('url.search.private')) {
             return view ('dashboard/search-url');
-
-        } else {
-            return view ('/search-url');
         }
+        return view ('/search-url');
     }
 
     /**

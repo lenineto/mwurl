@@ -21,11 +21,11 @@
         @endif
 
         <div class="flex-center">
-           <form method="post" action="{{ route('store-url') }}">
+           <form method="post" action="{{ route('url.create') }}">
                 @csrf
                 <div class="flex-center">
-                    <div><input class="text-input" type="text" name="long_url"  placeholder="Type the original (long)
-                     URL including https://" size="40" required></div>
+                    <div><input class="text-input" type="text" name="long_url"
+                                placeholder="Type the original (long) URL including https://" size="40" required></div>
                 </div>
                <div class="line-spacer"></div>
                <div class="flex-center showhide">

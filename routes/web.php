@@ -7,29 +7,40 @@ use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UrlController;
 
-
+/**
+ * General GET routes
+ */
 Route::get('/', HomeController::class)->name('homepage');
 Route::get('/logbook', LogbookController::class)->name('logbook');
 Route::get('/about', AboutController::class)->name('about');
 Route::get('/todo', TodoController::class)->name('todo');
 Route::get('/search', [UrlController::class, 'search'])->name('search');
 
-
+/**
+ * Dashboard GET routes
+ */
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/dashboard/create-url', [UrlController::class, 'create'])->name('create-url');
-Route::get('/dashboard/list-urls', [UrlController::class, 'index'])->name('list-urls');
-Route::get('/dashboard/search', [UrlController::class, 'search'])->name('user-search');
-Route::get('/dashboard/edit-url', [UrlController::class, 'edit'])->name('edit-url');
+Route::get('/dashboard/url/create', [UrlController::class, 'create'])->name('url.create');
+Route::get('/dashboard/urls/list', [UrlController::class, 'index'])->name('urls.list');
+Route::get('/dashboard/url/', [UrlController::class, 'index']);
+Route::get('/dashboard/url/search', [UrlController::class, 'search'])->name('url.search.private');
+Route::get('/dashboard/url/{id}', [UrlController::class, 'edit'])->name('url.edit');
 
-Route::get('/dashboard/disable-url', [UrlController::class, 'disable'])->name('disable-url');
-Route::get('/dashboard/enable-url', [UrlController::class, 'enable'])->name('enable-url');
+Route::get('/dashboard/url/disable/{id}', [UrlController::class, 'disable'])->name('url.disable');
+Route::get('/dashboard/enable/{id}', [UrlController::class, 'enable'])->name('url.enable');
 
-Route::post('/search', [UrlController::class, 'show'])->name('public-urls');
+/**
+ * General POST routes
+ */
+Route::post('/urls/list', [UrlController::class, 'show'])->name('urls.list.public');
 
-Route::post('/dashboard/store-url', [UrlController::class, 'store'])->name('store-url');
-Route::post('/dashboard/update-url', [UrlController::class, 'update'])->name('update-url');
-Route::post('/dashboard/delete-url', [UrlController::class, 'destroy'])->name('delete-url');
-Route::post('/dashboard/search', [UrlController::class, 'show'])->name('user-urls');
+/**
+ * Dashboard POST routes
+ */
+Route::post('/dashboard/url/create', [UrlController::class, 'store'])->name('url.create');
+Route::post('/dashboard/url/update', [UrlController::class, 'update'])->name('url.update');
+Route::post('/dashboard/delete-url', [UrlController::class, 'destroy'])->name('url.delete');
+Route::post('/dashboard/urls/list', [UrlController::class, 'show'])->name('urls.list.private');
 
 /**
  * External redirection route
