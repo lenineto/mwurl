@@ -8,7 +8,9 @@ function showhide(id) {
         element.style.display = "none";
     } else {
         element.getElementsByTagName('input')[0].required = true;
-        element.getElementsByTagName('input')[0].value = document.getElementById("_"+id).value;
+        if (document.getElementById("_"+id)) {
+            element.getElementsByTagName('input')[0].value = document.getElementById("_"+id).value;
+        }
         element.style.display = "block";
     }
 

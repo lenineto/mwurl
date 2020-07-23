@@ -18,7 +18,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/dashboard/create-url', [UrlController::class, 'create'])->name('create-url');
 Route::get('/dashboard/list-urls', [UrlController::class, 'index'])->name('list-urls');
 Route::get('/dashboard/search', [UrlController::class, 'search'])->name('user-search');
-Route::get('/dashboard/create-url', [UrlController::class, 'store'])->name('create-url');
 Route::get('/dashboard/edit-url', [UrlController::class, 'edit'])->name('edit-url');
 
 Route::get('/dashboard/disable-url', [UrlController::class, 'disable'])->name('disable-url');
