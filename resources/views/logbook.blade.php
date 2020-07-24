@@ -8,6 +8,7 @@
     <div class="text">
         <h3>24/07/2020</h3>
         <ul>
+            <li>branch v2.0 merged into master and deleted</li>
             <li>Added a secondary route to the update function to avoid users trying to tamper with the URL,
                and a function that normalizes the URL by redirecting it to the edit url. If a user tries to go directly to
                 {{ env('APP_URL') }}/dashboard/url/update/3 (the endpoint to update the URL, which expects a POST) it will
