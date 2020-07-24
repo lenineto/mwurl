@@ -1,55 +1,63 @@
-<?php
+<?php /** @noinspection PhpUndefinedClassInspection */
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UrlController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+/**
+ * General GET routes
+ */
+Route::get('/', HomeController::class)->name('homepage');
+Route::get('/logbook', LogbookController::class)->name('logbook');
+Route::get('/about', AboutController::class)->name('about');
+Route::get('/todo', TodoController::class)->name('todo');
+Route::get('/search', [UrlController::class, 'search'])->name('search');
 
-Route::get('/', function () {
-    return view('home');
+/**
+ * Dashboard GET routes
+ */
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/url/create', [UrlController::class, 'create'])->name('url.create');
+Route::get('/dashboard/urls/list', [UrlController::class, 'index'])->name('urls.list');
+Route::get('/dashboard/url/', [UrlController::class, 'index']);
+Route::get('/dashboard/url/search', [UrlController::class, 'search'])->name('url.search.private');
+Route::get('/dashboard/url/{url}', [UrlController::class, 'edit'])->name('url.edit');
+
+Route::get('/dashboard/url/disable/{url}', [UrlController::class, 'disable'])->name('url.disable');
+Route::get('/dashboard/url/enable/{url}', [UrlController::class, 'enable'])->name('url.enable');
+
+/**
+ * Auxiliary GET routes for normalization and to avoid tampering
+ */
+Route::get('/dashboard/url/update/{url}', [UrlController::class, 'edit']);
+Route::get('/dashboard/url/delete/{url}', [UrlController::class, 'index']);
+
+/**
+ * General POST routes
+ */
+Route::post('/urls/list', [UrlController::class, 'show'])->name('urls.list.public');
+
+/**
+ * Dashboard POST routes
+ */
+Route::post('/dashboard/url/create', [UrlController::class, 'store'])->name('url.create');
+Route::post('/dashboard/url/update/{url}', [UrlController::class, 'update'])->name('url.update');
+Route::post('/dashboard/url/delete/{url}', [UrlController::class, 'destroy'])->name('url.delete');
+Route::post('/dashboard/urls/list', [UrlController::class, 'show'])->name('urls.list.private');
+
+/**
+ * External redirection route
+ */
+Route::get('/s/{url:url_token}', [UrlController::class, 'redirect'])->name('redirection');
+
+/**
+ * Defining the namespace to get Laravel's default auth routes working
+ */
+Route::namespace('App\Http\Controllers')->group(function () {
+    Auth::routes();
 });
 
-Route::get('/logbook', function () {
-    return view('logbook');
-});
 
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/todo', function () {
-    return view('todo');
-});
-
-Route::get('/search', function () {
-    return view('search');
-});
-
-Route::post('/search/url', function () {
-    return view('results');
-});
-
-Auth::routes();
-
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-Route::get('/dashboard/list-urls', 'UrlController@index')->name('list-urls');
-Route::get('/dashboard/disable-url', 'UrlController@disable')->name('disable-url');
-Route::get('/dashboard/enable-url', 'UrlController@enable')->name('enable-url');
-Route::get('/dashboard/create-url', 'UrlController@create')->name('create-url');
-Route::post('/dashboard/store-url', 'UrlController@store')->name('store-url');
-Route::get('/dashboard/edit-url', 'UrlController@edit')->name('edit-url');
-Route::post('/dashboard/update-url', 'UrlController@update')->name('update-url');
-Route::post('/dashboard/delete-url', 'UrlController@destroy')->name('delete-url');
-Route::get('/dashboard/search', 'UrlController@search')->name('user-search');
-Route::get('/search', 'UrlController@search')->name('search');
-Route::post('/dashboard/search', 'UrlController@show')->name('user-urls');
-Route::post('/search', 'UrlController@show')->name('public-urls');
-Route::get('/s/{any}', 'UrlController@redirect')->where('any', '.*');

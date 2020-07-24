@@ -1,235 +1,233 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
+/** @noinspection PhpUndefinedClassInspection */
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\Authenticate;
 use App\Url;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
-use phpDocumentor\Reflection\Location;
+use Illuminate\View\View;
+use Route;
 
 class UrlController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the list of URLs
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
-        $urls = \App\Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
-
-        return view('dashboard/list-urls')->withUrls($urls);
-
+        if (Auth::check()) {
+            $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
+            return view('dashboard.urls.list')->withUrls($urls);
+        }
+        /** If the user is not logged in kick back to homepage */
+        return view('homepage');
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new URL
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
-        return view( 'dashboard/create-url');
+        return view( 'dashboard.url.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created URL into the DB
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function store(Request $request)
     {
-         $valid = $request->validate([
+         $request->validate([
            'long_url' => 'required|active_url',
         ]);
 
          if ( $request->url_token ) {
-             $token = Str::of($request->short_url)->replace('http:', '')->replace('https:', '')
+             $token = Str::of($request->url_token)->replace('http:', '')->replace('https:', '')
                  ->replace('/', '')->replace('\\', '')->slug('');
 
          } else {
              $token = Str::slug(Str::random(9), '-');
          }
 
-         $url = new Url();
-         $url->user_id = Auth::user()->id;
-         $url->long_url = $request->long_url;
-         $url->url_token = $token;
-         $url->created_at = Carbon::now()->format('Y-m-d H:i:s');
-         $url->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-         $url->enabled = true;
-         $url->save();
+        $url = Url::firstOrCreate(
+          ['url_token' => $token],
+          [
+              'user_id' => Auth::user()->id,
+              'long_url' => $request->long_url,
+              'enabled' => true
+          ]
+        );
 
-         return redirect()->route('list-urls');
-
+         return redirect()->route('urls.list.private')->withUrl($url);
     }
 
     /**
-     * Display the specified resources.
+     * Display the matching URLs
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return View
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function show(Request $request)
     {
-        $valid = $request->validate([
+        $request->validate([
             'search_url' => 'required|min:4',
         ]);
 
         $keyword = Str::slug($request->search_url, '');
 
-
-        if (Auth::check() && request()->routeIs('user-urls')) {
-
-
-            $urls = \App\Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
-
-              return view('dashboard/list-search')->withUrls($urls)->withToken($keyword);
-
-        } else {
-
-            $urls = \App\Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
-
-            return view('list-search')->withUrls($urls)->withToken($keyword);
+        /**
+         * Handle search for authenticated user
+         */
+        if (Auth::check() && request()->routeIs('urls.list.private')) {
+            $urls = Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
+            if ($urls) {
+                return view('dashboard.urls.list')->withUrls($urls)->withToken($keyword);
+            }
+            return view('dashboard.url.search');
         }
+
+        /**
+         * Handle search for anonymous user
+         */
+        $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
+
+        if ($urls) {
+            return view('urls.list')->withUrls($urls)->withToken($keyword);
+        }
+        return view('urls.search');
+
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Shows the URL edit form passing the Url object
+     * @param Url $url
+     * @return View|RedirectResponse
      */
-    public function edit()
+    public function edit(Url $url)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
-            if ($url)
-                return view('dashboard/edit-url')->withUrl($url);
+        /** Normalize the URL */
+        if (Route::current()->getName() !== 'url.edit') {
+            return redirect()->route('url.edit', $url->id);
         }
-        return redirect()->route('list-urls');
+        return view('dashboard.url.edit')->withUrl($url);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the URL and redirects to the URL list
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Url $url
+     * @return RedirectResponse|View
+     * @noinspection PhpUndefinedFieldInspection
+     * @noinspection PhpUndefinedMethodInspection
      */
-    public function update(Request $request)
+    public function update(Request $request, Url $url)
     {
-        $valid = $request->validate([
+        /** Renders the edit URL form*/
+        if ($request->method() !== 'POST') {
+            return view('dashboard.url.edit')->withUrl($url);
+        }
+
+        /** Updates the URL with the the form data */
+        $request->validate([
             'long_url' => 'required|active_url'
         ]);
 
         if ( $request->url_token ) {
             $token = Str::of($request->url_token)->replace('http:', '')->replace('https:', '')
                 ->replace('/', '')->replace('\\', '')->slug('');
-
         } else {
             $token = Str::slug(Str::random(9), '-');
         }
 
-        $url = Url::find($request->id);
-        if (!$url)
-            return redirect()->route('list-urls');
+        $enabled = $request->enabled ? true : false;
 
-        $url->enabled = false;
-        $url->long_url = $request->long_url;
-        $url->url_token = $token;
-        $url->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-        if ($request->enabled)
-            $url->enabled = true;
+        $url->fill([
+            'long_url'  => $request->long_url,
+            'url_token' => $token,
+            'enabled'   => $enabled
+        ]);
         $url->save();
 
-        return redirect()->route('list-urls');
-
+        return redirect()->route('urls.list.private');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the URL and redirect to the URL list
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Url $url
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Request $request)
+    public function destroy(Url $url)
     {
-        $url = Url::find($request->id);
-        if (! $url)
-            return redirect()->route('list-urls');
-
         $url->delete();
-
-        return redirect()->route('list-urls');
-
-
+        return redirect()->route('urls.list.private');
     }
 
     /**
-     * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
+     * Retrieve URL by id and enable it
      *
-     * @return bool|\Illuminate\Http\RedirectResponse
+     * @param Url $url
+     * @return RedirectResponse
      */
-    public function disable()
+    public function disable(Url $url)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
-            $url->enabled = false;
-            $url->save();
-            return redirect()->route('list-urls');
-        }
-        return false;
+        $url->enabled = false;
+        $url->save();
+        return redirect()->route('urls.list.private');
     }
 
     /**
-     * Read the 'url' GET parameter, update the URL status to disabled, redirect to URL list
+     * Retrieve URL by id and disable it
      *
-     * @return bool|\Illuminate\Http\RedirectResponse
+     * @param Url $url
+     * @return RedirectResponse
      */
-    public function enable()
+    public function enable(Url $url)
     {
-        if ($_REQUEST['url']) {
-            $url = Url::find($_REQUEST['url']);
-            $url->enabled = true;
-            $url->save();
-            return redirect()->route('list-urls');
-        }
-        return false;
+        $url->enabled = true;
+        $url->save();
+        return redirect()->route('urls.list.private');
     }
 
     /**
      * Return different search forms for authenticated and anonymous users
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      */
     public function search()
     {
-        if (Auth::check() && request()->routeIs('user-search')) {
-
-            return view ('dashboard/search-url');
-
-        } else {
-
-            return view ('/search-url');
+        if (Auth::check() && request()->routeIs('url.search.private')) {
+            return view ('dashboard.url.search');
         }
+        return view ('urls.search');
     }
 
-    public function redirect(Request $request)
+    /**
+     * Redirect to the external URL or render the error page
+     *
+     * @param Request $request
+     * @param Url $url
+     * @return RedirectResponse
+     */
+    public function redirect(Request $request, Url $url)
     {
-        $token = Str::of($request->path())->replaceFirst('s/', '');
-        $url = \App\Url::where('url_token', $token)->where('enabled', true)->first();
-        if ($url)
-            return redirect()->to($url->long_url);
-
-        return view ('invalid-url')->withToken($token);
+        $queryString = $request->server->get('QUERY_STRING') ? '?' . $request->server->get('QUERY_STRING') : '';
+        return redirect()->to($url->long_url . $queryString);
     }
-
-
-
 }

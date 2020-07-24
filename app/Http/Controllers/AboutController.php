@@ -1,19 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Contracts\View\View;
 
-
-class HomeController extends Controller
+class AboutController extends Controller
 {
     /**
-     * Show
+     * Show the About page
      *
      * @return View
      */
     public function __invoke()
     {
-        return view('home');
+        return view('about');
     }
 }

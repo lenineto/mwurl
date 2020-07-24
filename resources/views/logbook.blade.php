@@ -6,10 +6,33 @@
 
 @section('content')
     <div class="text">
+        <h3>24/07/2020</h3>
+        <ul>
+            <li>Added a secondary route to the update function to avoid users trying to tamper with the URL,
+               and a function that normalizes the URL by redirecting it to the edit url. If a user tries to go directly to
+                {{ env('APP_URL') }}/dashboard/url/update/3 (the endpoint to update the URL, which expects a POST) it will
+                redirect to {{ env('APP_URL') }}/dashboard/url/3 (the endpoint that renders the URL edit form)</li>
+        </ul>
+        <h3>23/07/2020</h3>
+        <ul>
+            <li><strong>Tasks are now handled in Jira, I will only include here anything that is not there.</strong></li>
+        </ul>
+
         <h3>22/07/2020</h3>
         <ul>
-            <li>Branch &ldquo;v2.0&rdquo; added. Please follow new updates on the new branch.</li>
+            <li>Fixed the email problem affecting password resets (.env file updated to use mailhog on dev).</li>
+            <li><strong>New branch &ldquo;v2.0&rdquo; added.</strong></li>
+            <li>Laravel plugin installed on PHPStorm.</li>
+            <li>Installed Barry's laravel-ide-helper via composer.</li>
+            <li>Created the additional controllers to render the pages.</li>
+            <li>Installed Barry's laravel-debugbar via composer.</li>
+            <li>Refactored all the routes to have name, use a proper &ldquo;Controller@method&rdquo; or a invokable Controller.</li>
+            <li>Modified the redirection route to pass the url_token 's/{token}'</li>
+            <li>Updated the UrlController@redirect method to read url_token directly</li>
+            <li>Added functionality to the UrlController@redirect method to include url parameters in the redirection</li>
+            <li>Changing all the text on the templates to their @{{ __('text') }} version so it's ready for localization/</li>
         </ul>
+
         <h3>21/07/2020</h3>
         <ul>
             <li>Created the routes and views for authenticated users search.</li>

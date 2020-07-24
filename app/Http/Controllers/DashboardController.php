@@ -1,41 +1,31 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Create a new dashboard instance with authentication.
      *
      * @return void
      */
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
+
     /**
-     * Show the application homepage.
+     * Show the dashboard page
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return View
      */
     public function index()
     {
         return view('dashboard');
     }
 
-    public function addUrl()
-    {
-        return view('dashboard/add-url');
-    }
-
-    public function searchUrl() {
-        return view('dashboard/search-url');
-    }
-
-    public function listUrls() {
-        return view ('dashboard/list-urls');
-    }
 }
