@@ -18,15 +18,16 @@ class UrlController extends Controller
     /**
      * Display the list of URLs
      *
-     * @return View|false
+     * @return View
      */
     public function index()
     {
         if (Auth::check()) {
             $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
-            return view('dashboard/list-urls')->withUrls($urls);
+            return view('dashboard.urls.list')->withUrls($urls);
         }
-        return false;
+        /** If the user is not logged in kick back to homepage */
+        return view('homepage');
     }
 
 
@@ -37,7 +38,7 @@ class UrlController extends Controller
      */
     public function create()
     {
-        return view( 'dashboard/create-url');
+        return view( 'dashboard.url.create');
     }
 
     /**
@@ -94,19 +95,20 @@ class UrlController extends Controller
         if (Auth::check() && request()->routeIs('urls.list.private')) {
             $urls = Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
             if ($urls) {
-                return view('dashboard.list-search')->withUrls($urls)->withToken($keyword);
+                return view('dashboard.urls.list')->withUrls($urls)->withToken($keyword);
             }
-            return view('dashboard.search-url');
+            return view('dashboard.url.search');
         }
 
         /**
          * Handle search for anonymous user
          */
         $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
+
         if ($urls) {
-            return view('list-search')->withUrls($urls)->withToken($keyword);
+            return view('urls.list')->withUrls($urls)->withToken($keyword);
         }
-        return view('search-url');
+        return view('urls.search');
 
     }
 
@@ -121,8 +123,9 @@ class UrlController extends Controller
         if (Route::current()->getName() !== 'url.edit') {
             return redirect()->route('url.edit', $url->id);
         }
-        return view('dashboard.edit-url')->withUrl($url);
+        return view('dashboard.url.edit')->withUrl($url);
     }
+
     /**
      * Update the URL and redirects to the URL list
      *
@@ -134,9 +137,9 @@ class UrlController extends Controller
      */
     public function update(Request $request, Url $url)
     {
-        /** Renders the edit URL form         */
+        /** Renders the edit URL form*/
         if ($request->method() !== 'POST') {
-            return view('dashboard.edit-url')->withUrl($url);
+            return view('dashboard.url.edit')->withUrl($url);
         }
 
         /** Updates the URL with the the form data */
@@ -151,13 +154,15 @@ class UrlController extends Controller
             $token = Str::slug(Str::random(9), '-');
         }
 
-            $url->enabled = false;
-            $url->long_url = $request->long_url;
-            $url->url_token = $token;
-            if ($request->enabled) {
-                $url->enabled = true;
-            }
-            $url->save();
+        $enabled = $request->enabled ? true : false;
+
+        $url->fill([
+            'long_url'  => $request->long_url,
+            'url_token' => $token,
+            'enabled'   => $enabled
+        ]);
+        $url->save();
+
         return redirect()->route('urls.list.private');
     }
 
@@ -208,9 +213,9 @@ class UrlController extends Controller
     public function search()
     {
         if (Auth::check() && request()->routeIs('url.search.private')) {
-            return view ('dashboard.search-url');
+            return view ('dashboard.url.search');
         }
-        return view ('search-url');
+        return view ('urls.search');
     }
 
     /**
