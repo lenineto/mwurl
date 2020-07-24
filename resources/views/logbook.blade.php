@@ -6,6 +6,13 @@
 
 @section('content')
     <div class="text">
+        <h3>24/07/2020</h3>
+        <ul>
+            <li>Added a secondary route to the update function to avoid users trying to tamper with the URL,
+               and a function that normalizes the URL by redirecting it to the edit url. If a user tries to go directly to
+                {{ env('APP_URL') }}/dashboard/url/update/3 (the endpoint to update the URL, which expects a POST) it will
+                redirect to {{ env('APP_URL') }}/dashboard/url/3 (the endpoint that renders the URL edit form)</li>
+        </ul>
         <h3>23/07/2020</h3>
         <ul>
             <li><strong>Tasks are now handled in Jira, I will only include here anything that is not there.</strong></li>

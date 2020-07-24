@@ -5,11 +5,13 @@
 namespace App\Http\Controllers;
 
 use App\Url;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Route;
 
 class UrlController extends Controller
 {
@@ -109,30 +111,35 @@ class UrlController extends Controller
     }
 
     /**
-     * Look the URL up and show the form for editing it, if found
-     *
-     * @param int $id
-     * @return View
+     * Shows the URL edit form passing the Url object
+     * @param Url $url
+     * @return View|RedirectResponse
      */
-    public function edit(int $id)
+    public function edit(Url $url)
     {
-        $url = Url::find($id);
-        if ($url) {
-            return view('dashboard.edit-url')->withUrl($url);
+        /** Normalize the URL */
+        if (Route::current()->getName() !== 'url.edit') {
+            return redirect()->route('url.edit', $url->id);
         }
-        return view('dashboard.list-urls');
+        return view('dashboard.edit-url')->withUrl($url);
     }
-
     /**
      * Update the URL and redirects to the URL list
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @param Url $url
+     * @return RedirectResponse|View
      * @noinspection PhpUndefinedFieldInspection
      * @noinspection PhpUndefinedMethodInspection
      */
-    public function update(Request $request)
+    public function update(Request $request, Url $url)
     {
+        /** Renders the edit URL form         */
+        if ($request->method() !== 'POST') {
+            return view('dashboard.edit-url')->withUrl($url);
+        }
+
+        /** Updates the URL with the the form data */
         $request->validate([
             'long_url' => 'required|active_url'
         ]);
@@ -140,14 +147,10 @@ class UrlController extends Controller
         if ( $request->url_token ) {
             $token = Str::of($request->url_token)->replace('http:', '')->replace('https:', '')
                 ->replace('/', '')->replace('\\', '')->slug('');
-
         } else {
             $token = Str::slug(Str::random(9), '-');
         }
 
-        $url = Url::find($request->id);
-
-        if ($url) {
             $url->enabled = false;
             $url->long_url = $request->long_url;
             $url->url_token = $token;
@@ -155,91 +158,71 @@ class UrlController extends Controller
                 $url->enabled = true;
             }
             $url->save();
-        }
-
         return redirect()->route('urls.list.private');
     }
 
     /**
      * Delete the URL and redirect to the URL list
      *
-     * @param Request $request
+     * @param Url $url
      * @return RedirectResponse
-     * @noinspection PhpUndefinedFieldInspection
+     * @throws Exception
      */
-    public function destroy(Request $request)
+    public function destroy(Url $url)
     {
-        $url = Url::find($request->id);
-        if ($url) {
-            $url->delete();
-        }
-
+        $url->delete();
         return redirect()->route('urls.list.private');
     }
 
     /**
      * Retrieve URL by id and enable it
      *
-     * @param int $id
-     * @return RedirectResponse|false
+     * @param Url $url
+     * @return RedirectResponse
      */
-    public function disable(int $id)
+    public function disable(Url $url)
     {
-        $url = Url::find($id);
-        if ($url) {
-            $url->enabled = false;
-            $url->save();
-            return redirect()->route('urls.list.private');
-        }
-        return false;
+        $url->enabled = false;
+        $url->save();
+        return redirect()->route('urls.list.private');
     }
 
     /**
      * Retrieve URL by id and disable it
      *
-     * @param int $id
-     * @return RedirectResponse|false
+     * @param Url $url
+     * @return RedirectResponse
      */
-    public function enable(int $id)
+    public function enable(Url $url)
     {
-        $url = Url::find($id);
-        if ($url) {
-            $url->enabled = true;
-            $url->save();
-            return redirect()->route('urls.list.private');
-        }
-        return false;
+        $url->enabled = true;
+        $url->save();
+        return redirect()->route('urls.list.private');
     }
 
     /**
      * Return different search forms for authenticated and anonymous users
      *
-     * @return View|false
+     * @return View
      */
     public function search()
     {
         if (Auth::check() && request()->routeIs('url.search.private')) {
-            return view ('dashboard/search-url');
+            return view ('dashboard.search-url');
         }
-        return view ('/search-url');
+        return view ('search-url');
     }
 
     /**
      * Redirect to the external URL or render the error page
      *
      * @param Request $request
-     * @param String $token
-     * @return RedirectResponse|View
+     * @param Url $url
+     * @return RedirectResponse
      */
-    public function redirect(Request $request, String $token)
+    public function redirect(Request $request, Url $url)
     {
         $queryString = $request->server->get('QUERY_STRING') ? '?' . $request->server->get('QUERY_STRING') : '';
-
-        $url = Url::where('url_token', $token)->where('enabled', true)->first();
-        if ($url)  {
-            return redirect()->to($url->long_url . $queryString);
-        }
-
-        return view ('invalid-url')->withToken($token);
+        return redirect()->to($url->long_url . $queryString);
     }
 }

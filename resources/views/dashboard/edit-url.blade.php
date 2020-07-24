@@ -21,11 +21,10 @@
         @endif
 
         <div class="flex-center">
-           <form id="updateurl" method="post" action="{{ route('url.update') }}">
+           <form id="updateurl" method="post" action="{{ route('url.update', $url->id) }}">
                 @csrf
                 <div class="flex-center">
                     <input id="_urltoken" type="hidden" value="{{ $url->url_token }}">
-                    <input name="id" type="hidden" value="{{ $url->id }}">
                     <div><input class="text-input" type="text" name="long_url" size="40"
                         value="{{ $url->long_url }}" required></div>
                 </div>
@@ -55,9 +54,8 @@
         </div>
                <div class="spacer"></div>
                <div class="flex-center">
-                   <form id="removeurl" method="post" action="{{ route('url.delete') }}">
+                   <form id="removeurl" method="post" action="{{ route('url.delete', $url->id) }}">
                        @csrf
-                       <input type="hidden" name="id" value="{{ $url->id }}">
                    <div class="del-button"><button type="submit">Delete URL</button></div>
                    </form>
                </div>
