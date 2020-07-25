@@ -13,7 +13,7 @@ class CreateUrlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('urls', function (Blueprint $table) {
+        Schema::create('url', function (Blueprint $table) {
             $table->id();
             $table->string('long_url');
             $table ->string('url_token');
@@ -31,6 +31,6 @@ class CreateUrlsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('urls');
+        Schema::dropIfExists('url');
     }
 }

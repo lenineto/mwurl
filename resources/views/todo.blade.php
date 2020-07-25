@@ -12,9 +12,8 @@
 
         <h3>v2.0 To Do List (Leni's)</h3>
         <ul>
-            <li>Refactor the routes using the proper 'Controller@method' or an invokable Controller</li>
-            <li>Build the new Controllers and refactor existing ones</li>
-            <li>Update PHPDocBlocks throughout</li>
+            <li><del>Refactor the routes using the proper 'Controller@method' or an invokable Controller</del></li>
+            <li><del>Build the new Controllers and refactor existing ones</del></li>
             <li>Implement the new layout</li>
         </ul>
 

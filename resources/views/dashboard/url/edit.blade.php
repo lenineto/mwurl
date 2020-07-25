@@ -23,6 +23,7 @@
         <div class="flex-center">
            <form id="updateurl" method="post" action="{{ route('url.update', $url->id) }}">
                 @csrf
+                @method('PUT')
                 <div class="flex-center">
                     <input id="_urltoken" type="hidden" value="{{ $url->url_token }}">
                     <div><input class="text-input" type="text" name="long_url" size="40"
@@ -54,8 +55,9 @@
         </div>
                <div class="spacer"></div>
                <div class="flex-center">
-                   <form id="removeurl" method="post" action="{{ route('url.delete', $url->id) }}">
+                   <form id="removeurl" method="post" action="{{ route('url.destroy', $url->id) }}">
                        @csrf
+                       @method('DELETE')
                    <div class="del-button"><button type="submit">Delete URL</button></div>
                    </form>
                </div>

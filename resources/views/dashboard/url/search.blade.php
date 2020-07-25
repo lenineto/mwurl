@@ -20,7 +20,7 @@
         @endif
 
         <div class="flex-center">
-           <form method="post" action="{{ route('urls.list.private') }}">
+           <form method="post" action="{{ route('url.list.private') }}">
                 @csrf
                 <div class="flex-center">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

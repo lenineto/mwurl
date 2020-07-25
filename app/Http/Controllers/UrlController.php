@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Route;
 
 class UrlController extends Controller
 {
@@ -24,7 +23,7 @@ class UrlController extends Controller
     {
         if (Auth::check()) {
             $urls = Url::where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
-            return view('dashboard.urls.list')->withUrls($urls);
+            return view('dashboard.url.list')->withUrls($urls);
         }
         /** If the user is not logged in kick back to homepage */
         return view('homepage');
@@ -71,7 +70,7 @@ class UrlController extends Controller
           ]
         );
 
-         return redirect()->route('urls.list.private')->withUrl($url);
+         return redirect()->route('url.list.private')->withUrl($url);
     }
 
     /**
@@ -92,10 +91,10 @@ class UrlController extends Controller
         /**
          * Handle search for authenticated user
          */
-        if (Auth::check() && request()->routeIs('urls.list.private')) {
+        if (Auth::check() && request()->routeIs('url.list.private')) {
             $urls = Url::where('user_id', Auth::user()->id)->search($keyword)->orderBy('updated_at', 'desc')->get();
             if ($urls) {
-                return view('dashboard.urls.list')->withUrls($urls)->withToken($keyword);
+                return view('dashboard.url.list')->withUrls($urls)->withToken($keyword);
             }
             return view('dashboard.url.search');
         }
@@ -106,9 +105,9 @@ class UrlController extends Controller
         $urls = Url::where('enabled', true)->search($keyword)->orderBy('updated_at', 'desc')->get();
 
         if ($urls) {
-            return view('urls.list')->withUrls($urls)->withToken($keyword);
+            return view('url.list')->withUrls($urls)->withToken($keyword);
         }
-        return view('urls.search');
+        return view('url.search');
 
     }
 
@@ -120,9 +119,11 @@ class UrlController extends Controller
     public function edit(Url $url)
     {
         /** Normalize the URL */
+        /*
         if (Route::current()->getName() !== 'url.edit') {
             return redirect()->route('url.edit', $url->id);
         }
+        */
         return view('dashboard.url.edit')->withUrl($url);
     }
 
@@ -138,7 +139,7 @@ class UrlController extends Controller
     public function update(Request $request, Url $url)
     {
         /** Renders the edit URL form*/
-        if ($request->method() !== 'POST') {
+        if ($request->method() !== 'PUT') {
             return view('dashboard.url.edit')->withUrl($url);
         }
 
@@ -163,7 +164,7 @@ class UrlController extends Controller
         ]);
         $url->save();
 
-        return redirect()->route('urls.list.private');
+        return redirect()->route('url.index');
     }
 
     /**
@@ -176,7 +177,7 @@ class UrlController extends Controller
     public function destroy(Url $url)
     {
         $url->delete();
-        return redirect()->route('urls.list.private');
+        return redirect()->route('url.index');
     }
 
     /**
@@ -189,7 +190,7 @@ class UrlController extends Controller
     {
         $url->enabled = false;
         $url->save();
-        return redirect()->route('urls.list.private');
+        return redirect()->route('url.index');
     }
 
     /**
@@ -202,20 +203,21 @@ class UrlController extends Controller
     {
         $url->enabled = true;
         $url->save();
-        return redirect()->route('urls.list.private');
+        return redirect()->route('url.index');
     }
 
     /**
      * Return different search forms for authenticated and anonymous users
      *
+     * @param Request $request
      * @return View
      */
-    public function search()
+    public function search(Request $request)
     {
-        if (Auth::check() && request()->routeIs('url.search.private')) {
+        if (Auth::check() && $request->routeIs('url.search.private')) {
             return view ('dashboard.url.search');
         }
-        return view ('urls.search');
+        return view ('url.search');
     }
 
     /**

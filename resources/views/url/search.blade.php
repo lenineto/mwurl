@@ -9,7 +9,7 @@
     <h3>Search Active URLs</h3>
 
     <div class="flex-center">
-        <form method="post" action="{{ route('urls.list.public') }}">
+        <form method="post" action="{{ route('url.list.public') }}">
             @csrf
             <div class="flex-center">
                 <div><input class="text-input" type="text" name="search_url"

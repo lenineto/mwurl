@@ -6,9 +6,21 @@
 
 @section('content')
     <div class="text">
+        <h3>25/05/2020</h3>
+        <ul>
+            <li>Updated the web routes to use resource routing</li>
+            <li>Refactored the UrlController to reflect the new routes</li>
+            <li>Moved/renamed the views to match the proper naming convention</li>
+            <li>Removed unnecessary views</li>
+            <li>Removed unnecessary routes and 'uses' from the web routes file</li>
+            <li>Created a new PageController (without the page model) to serve static pages</li>
+            <li>Created a new route for the static pages including a catch all</li>
+            <li>Deleted all the unnecessary Controllers for each page</li>
+        </ul>
+
         <h3>24/07/2020</h3>
         <ul>
-            <li>branch v2.0 merged into master and deleted</li>
+            <li>branch v2.0 merged into master and deleted it</li>
             <li>Added a secondary route to the update function to avoid users trying to tamper with the URL,
                and a function that normalizes the URL by redirecting it to the edit url. If a user tries to go directly to
                 {{ env('APP_URL') }}/dashboard/url/update/3 (the endpoint to update the URL, which expects a POST) it will

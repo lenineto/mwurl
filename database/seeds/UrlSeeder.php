@@ -17,7 +17,7 @@ class UrlSeeder extends Seeder
         $faker = Faker\Factory::create();
 
 
-        DB::table('urls')->insert([
+        DB::table('url')->insert([
             'user_id' => $lastUser->id,
             'long_url' => $faker->url(),
             'enabled' => true,

@@ -25,7 +25,7 @@
         <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('url.create') }}'">
             New Short URL</button></div>
 
-        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('urls.list') }}'">
+        <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('url.index') }}'">
             List My URLs</button></div>
 
         <div class="search-button btn-small"><button type="button" onclick="location.href='{{ route('url.search.private') }}'">

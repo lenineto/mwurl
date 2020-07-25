@@ -1,8 +1,9 @@
 @section('footer')
+    <!--suppress HtmlUnknownTarget -->
     <div class="footer">
         <div class="links">
             <a @if (! Request::is('/'))  href="/"  @else  class="disabled_link"  @endif>Home</a>
-            <a @if (! Request::is('search'))  href="/search"  @else  class="disabled_link"  @endif>Search</a>
+            <a @if (! Request::is('url/search'))  href="/url/search"  @else  class="disabled_link"  @endif>Search</a>
             <a @if (! Request::is('dashboard'))  href="/dashboard"  @else  class="disabled_link"  @endif>Dashboard</a>
             <a @if (! Request::is('logbook'))  href="/logbook"  @else  class="disabled_link"  @endif>Logbook</a>
             <a @if (! Request::is('todo'))  href="/todo"  @else  class="disabled_link"  @endif>ToDo</a>
