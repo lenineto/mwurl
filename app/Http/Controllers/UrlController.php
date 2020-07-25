@@ -61,7 +61,7 @@ class UrlController extends Controller
              $token = Str::slug(Str::random(9), '-');
          }
 
-        $url = Url::firstOrCreate(
+        Url::firstOrCreate(
           ['url_token' => $token],
           [
               'user_id' => Auth::user()->id,
@@ -70,7 +70,7 @@ class UrlController extends Controller
           ]
         );
 
-         return redirect()->route('url.list.private')->withUrl($url);
+         return redirect()->route('url.index');
     }
 
     /**

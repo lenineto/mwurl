@@ -21,7 +21,7 @@
         @endif
 
         <div class="flex-center">
-           <form method="post" action="{{ route('url.create') }}">
+           <form method="post" action="{{ route('url.store') }}">
                 @csrf
                 <div class="flex-center">
                     <div><input class="text-input" type="text" name="long_url"
@@ -29,7 +29,7 @@
                 </div>
                <div class="line-spacer"></div>
                <div class="flex-center showhide">
-                   <div id="shorturl"><span>{{ env('APP_URL') }}  {{ env('APP_URL') . '/s/' }}</span><input class="text-input" type="text"
+                   <div id="shorturl"><span>{{ env('APP_URL') . '/s/' }}</span><input class="text-input" type="text"
                       name="url_token" placeholder="Type the desired short token" size="30" required></div>
                </div>
                <div class="line-spacer"></div>
