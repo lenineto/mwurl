@@ -13,7 +13,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/showhide.js?v=1.5') }}" defer></script>
+    <script src="{{ asset('js/showhide.js?v=1.9') }}" defer></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">

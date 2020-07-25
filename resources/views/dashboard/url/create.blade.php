@@ -34,8 +34,7 @@
                </div>
                <div class="line-spacer"></div>
                <div class="flex-center">
-               <div class="hspace25"><input type="checkbox" name="remember" id="remember"
-                    {{ old('remember') ? 'checked' : '' }} onclick="showhide('shorturl')">
+               <div class="hspace25"><input type="checkbox" name="remember" id="remember" onclick="showhide('shorturl')">
 
                    <label  class="label" for="remember">
                        {{ __('Random URL') }}
