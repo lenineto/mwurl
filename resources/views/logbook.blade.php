@@ -6,7 +6,12 @@
 
 @section('content')
     <div class="text">
-        <h3>25/05/2020</h3>
+        <h3>27/07/2020</h3>
+        <ul>
+            <li>Merged branch 'resource-routing' into master</li>
+        </ul>
+
+        <h3>25/07/2020</h3>
         <ul>
             <li>Updated the web routes to use resource routing</li>
             <li>Refactored the UrlController to reflect the new routes</li>
