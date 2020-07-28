@@ -5,50 +5,57 @@
 @section('icon', 'dashboard.svg')
 
 @section('content')
-
-    @isset($success)
-        <div class="flex-center" role="alert">
-            <div><p>{{ $success }}</p></div>
-        </div>
-        @Sess
-    @endisset
-
-    @if ( Auth::check() )
-        <h3>Registered URLs</h3>
-
-        <div class="flex-center">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <td>Original URL</td>
-                    <td>Short URL</td>
-                    <td>Created at</td>
-                    <td>Last Updated</td>
-                    <td>Status</td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($urls as $url)
-                    <tr>
-                        <td class="link">{{ $url->long_url }}</td>
-                        <td class="link"><a href=" {{ route('url.edit', $url->id) }}">
-                            {{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
-
-                        <td>{{ $url->created_at }}</td>
-                        <td>{{ $url->updated_at }}</td>
-                        <td class="link">
-                            @if($url->enabled)
-                                <a href="{{ route('url.disable', $url->id) }}">Enabled</a>
-                            @else
-                                <a href="{{ route('url.enable', $url->id) }}">Disabled</a>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+    <section>
+        <div class="container">
+            @isset($success)
+                <div class="row justify-content-center" role="alert">
+                    <div class="col-12 col-md-10 text-center">
+                        <p>{{ $success }}</p>
+                    </div>
+                </div>
+            @endisset
         </div>
 
-    @endif
+        @if ( Auth::check() )
+            <div class="container-fluid mt-2 mt-md-5">
+                <div class="row justify-content-center mt-2 pt-2">
+                    <div class="table-responsive-sm mb-5">
+                        <h3 class="ml-1 mb-3">Registered URLs</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Original URL</th>
+                                <th>Short URL</th>
+                                <th class="d-none d-lg-table-cell">Created at</th>
+                                <th class="d-none d-lg-table-cell">Last Updated</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($urls as $url)
+                                <tr>
+                                    <td class="link">{{ $url->long_url }}</td>
+                                    <td class="link"><a href=" {{ route('url.edit', $url->id) }}">
+                                            {{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
 
+                                    <td class="d-none d-lg-table-cell">{{ $url->created_at }}</td>
+                                    <td class="d-none d-lg-table-cell">{{ $url->updated_at }}</td>
+                                    <td class="link">
+                                        @if($url->enabled)
+                                            <a href="{{ route('url.disable', $url->id) }}">Enabled</a>
+                                        @else
+                                            <a href="{{ route('url.enable', $url->id) }}">Disabled</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        @endif
+        </div>
+    </section>
 @endsection

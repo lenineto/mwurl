@@ -10,7 +10,7 @@ function showhide(id) {
         if (document.getElementById("_"+id)) {
             element.getElementsByTagName('input')[0].value = document.getElementById("_"+id).value;
         }
-        element.style.display = "block";
+        element.style.display = "flex";
        //document.getElementById('randomUrl').checked = false;
     }
 

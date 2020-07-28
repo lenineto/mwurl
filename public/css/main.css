@@ -168,7 +168,7 @@ code {
     text-transform: uppercase;
 }
 
-.singlelink > span > a{
+.singlelink > span > a {
     color: #636b6f;
     font-weight: 600;
     text-display: underlined;

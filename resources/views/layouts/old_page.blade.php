@@ -1,7 +1,6 @@
-@include('layouts.partials.auth_header')
-
+@include('layouts.partials.old_default_header')
 <body>
-<div id="app" class="content">
+<div class="content">
     <div class="spacer"></div>
     <img src="/images/@yield('icon')" height="250">
 </div>
@@ -11,12 +10,13 @@
     <h1>@yield('title')</h1>
 </div>
 
+<div class="spacer"></div>
+
 <div class="content">
     @yield('content')
 </div>
 
-
-@include('layouts.partials.auth_footer')
+@include('layouts.partials.old_default_footer')
 
 <div class="spacer"></div>
 <div class="spacer"></div>

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.old_dashboard')
 
 @section('title', 'm-w URL dashboard')
 

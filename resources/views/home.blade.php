@@ -5,6 +5,7 @@
 @section('icon', 'home.svg')
 
 @section('content')
-    <h2>v2.0</h2>
-@endsection
+    <div class="col-md-12 text-center">
 
+    </div>
+@endsection

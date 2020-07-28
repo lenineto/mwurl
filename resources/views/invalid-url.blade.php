@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.old_home')
 
 @section('title', 'm-w URL bad URL')
 
