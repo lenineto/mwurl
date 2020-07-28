@@ -21,7 +21,7 @@
                 <li>
                     <del>Build the new Controllers and refactor existing ones</del>
                 </li>
-                <li>Implement the new layout</li>
+                <li><del>Implement the new layout</del></li>
             </ul>
         </div>
     </div>

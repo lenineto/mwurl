@@ -6,15 +6,27 @@
 
 @section('content')
     <div class="container mt-5 mb-5">
+        <div class="row-cols-1 mt-5">
+            <h2>28/07/2020</h2>
+            <ul>
+                <li>Updated the views to use the new page layout</li>
+                <li>Implemented the new bootstrap responsive template</li>
+                <li>Implemented site-wide navigation with sticky menu</li>
+                <li>Crated all the new views and layouts</li>
+                <li>Refactored the header and footer partials</li>
+                <li>Refactored the login/new account menus</li>
+            </ul>
+        </div>
         <div class="row-cols-1">
-            <h3>27/07/2020</h3>
+            <h2 class="pt-3">27/07/2020</h2>
             <ul>
                 <li>Merged branch 'resource-routing' into master</li>
+                <li>Created new branch 'new-template' to implement a bootstrap template</li>
             </ul>
         </div>
 
-        <div class="row-cols-1 mt-5">
-            <h3>25/07/2020</h3>
+        <div class="row-cols-1">
+            <h2 class="pt-3">25/07/2020</h2>
             <ul>
                 <li>Updated the web routes to use resource routing</li>
                 <li>Refactored the UrlController to reflect the new routes</li>
@@ -28,7 +40,7 @@
         </div>
 
         <div class="row-cols-1">
-            <h3>24/07/2020</h3>
+            <h2 class="pt-3">24/07/2020</h2>
             <ul>
                 <li>branch v2.0 merged into master and deleted it</li>
                 <li>Added a secondary route to the update function to avoid users trying to tamper with the URL,
@@ -42,7 +54,7 @@
         </div>
 
     <div class="row-cols-1">
-        <h3>23/07/2020</h3>
+        <h2 class="pt-3">23/07/2020</h2>
         <ul>
             <li><strong>Tasks are now handled in Jira, I will only include here anything that is not there.</strong>
             </li>
@@ -50,7 +62,7 @@
     </div>
 
         <div class="row-cols-1">
-            <h3>22/07/2020</h3>
+            <h2 class="pt-3">22/07/2020</h2>
             <ul>
                 <li>Fixed the email problem affecting password resets (.env file updated to use mailhog on dev).</li>
                 <li><strong>New branch &ldquo;v2.0&rdquo; added.</strong></li>
@@ -73,7 +85,7 @@
         </div>
 
     <div class="row-cols-1">
-        <h3>21/07/2020</h3>
+        <h2 class="pt-3">21/07/2020</h2>
         <ul>
             <li>Created the routes and views for authenticated users search.</li>
             <li>Created the routes and views for anonymous users search.</li>
@@ -98,7 +110,7 @@
     </div>
 
     <div class="row-cols-1">
-        <h3>20/07/2020</h3>
+        <h2 class="pt-3">20/07/2020</h2>
         <ul>
             <li>Decided on a short URL formula to user our app's base URL (as set in .env APP_URL) with a 9 chars
                 random,
@@ -128,7 +140,7 @@
     </div>
 
     <div class="row-cols-1">
-        <h3>17/07/2020</h3>
+        <h2 class="pt-3">17/07/2020</h2>
         <ul>
             <li>Researched about Laravel's built-in user authentication and how to implement it.</li>
             <li>Installed laravel/ui via composer.</li>
@@ -166,7 +178,7 @@
     </div>
 
     <div class="row-cols-1">
-        <h3>16/07/2020</h3>
+        <h2 class="pt-3">16/07/2020</h2>
         <ul>
             <li>Laid out the structure of the web app, including navigation and a minimalistic theme (based on
                 Laravel’s
@@ -200,7 +212,7 @@
     </div>
 
         <div class="row-cols-1">
-            <h3>15/07/2020</h3>
+            <h2 class="pt-3">15/07/2020</h2>
             <ul>
                 <li>Deploying laravel app <span class="bug">failed</span>. Investigating.</li>
                 <li>App deployed <span class="fix">successfully</span>. Found the problem to be composer cache.
