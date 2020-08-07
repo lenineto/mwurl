@@ -26,7 +26,7 @@ class UrlController extends Controller
             return view('dashboard.url.list')->withUrls($urls);
         }
         /** If the user is not logged in kick back to homepage */
-        return view('homepage');
+        return view('home');
     }
 
 

@@ -17,7 +17,7 @@ class UrlSeeder extends Seeder
         $faker = Faker\Factory::create();
 
 
-        DB::table('url')->insert([
+        DB::table('urls')->insert([
             'user_id' => $lastUser->id,
             'long_url' => $faker->url(),
             'enabled' => true,
@@ -25,6 +25,7 @@ class UrlSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
+
 
     }
 }
