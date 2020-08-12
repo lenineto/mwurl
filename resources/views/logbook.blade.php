@@ -6,8 +6,40 @@
 
 @section('content')
     <div class="container mt-5 mb-5">
-        <div class="row-cols-1 mt-5">
-            <h2>28/07/2020</h2>
+        <div class="row-cols-1">
+            <h2 class="pt-3">12/08/2020</h2>
+            <p>Finished a major refactoring of the app. Cleaner code.</p>
+            <p>Areas of Improvement:</p>
+            <ul>
+                <li class="list-unstyled"><strong>Routing</strong></li>
+                <li>Using auth middleware on a group of routes</li>
+                <li>Using resource routing for the URL controller</li>
+                <li>Re-ordered the routes to ensure proper functionality</li>
+                <li>Refactored all routes to use the new UrlController</li>
+            </ul>
+            <ul>
+                <li class="list-unstyled"><strong>Models & Controllers</strong></li>
+                <li>Better usage of models and controllers, keeping the logic on the controller</li>
+                <li>Got rid of the orphaned dashboard controller (we never had a dashboard model)</li>
+                <li>Implemented URL specific functionality on the model (IE disable/enable)</li>
+                <li>Implemented URL specific logic on the controller (IE verify if the user owns the URL before
+                        performing an operation</li>
+                <li>Created Eloquent relationships between the User and Urls (belongsTo and hasMany)</li>
+            </ul>
+            <ul>
+                <li class="list-unstyled"><strong>Seeders and Factories</strong></li>
+                <li>Url feeder automatically assigns URL to the lastly created User (can be overridden)</li>
+                <li>Created Url factory (automatically creates a new user unless overridden with specific user)</li>
+            </ul>
+            <ul>
+                <li class="list-unstyled"><strong>Security</strong></li>
+                <li>Removed unnecessary auth checks since the routes are protected</li>
+                <li>User-specific actions (like enable, disable, delete) check if the user is the URL owner before
+                        performing the action</li>
+            </ul>
+        </div>
+        <div class="row-cols-1">
+            <h2 class="pt-3">28/07/2020</h2>
             <ul>
                 <li>Updated the views to use the new page layout</li>
                 <li>Implemented the new bootstrap responsive template</li>

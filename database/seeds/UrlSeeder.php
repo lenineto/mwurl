@@ -19,9 +19,9 @@ class UrlSeeder extends Seeder
 
         DB::table('urls')->insert([
             'user_id' => $lastUser->id,
-            'long_url' => $faker->url(),
+            'external' => $faker->url(),
             'enabled' => true,
-            'url_token' => Str::slug(Str::random(9), '-'),
+            'token' => Str::slug(Str::random(9), '-'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

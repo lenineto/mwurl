@@ -9,15 +9,11 @@ class PageController extends Controller
 
     /**
      * Returns views for static pages or a 404
-     *
      * @param string $slug
      * @return View|void
      */
-    public function __invoke($slug = '')
+    public function show($slug = 'home')
     {
-        if ($slug == '/' || $slug == '') {
-            $slug = 'home';
-        }
         $slug = str_replace('/', '.', $slug );
 
         $pages = [

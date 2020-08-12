@@ -6,14 +6,11 @@
 
 @section('content')
     <section id="search_results">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center p-3 mt-4">
+        <div class="container-fluid mt-2 mt-md-5">
+            <div class="row justify-content-center mt-2 pt-2">
+                <div class="table-responsive-sm mb-5">
                     @if(count($urls))
-
-                        <h3 class="section-title pt-3 pb-2">URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
-
-                        <div class="table-responsive">
+                        <h3 class="ml-1 mb-3">URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -26,9 +23,9 @@
                                 <tbody>
                                 @foreach($urls as $url)
                                     <tr>
-                                        <td>{{ $url->long_url }}</td>
-                                        <td class="link"><a class="newWindow" href="{{ env('APP_URL') . '/s/' . $url->url_token }}"
-                                                            target="_blank">{{ env('APP_URL') . '/s/' . $url->url_token }} <i class="mdi mdi-open-in-new"></i></a></td>
+                                        <td>{{ $url->external }}</td>
+                                        <td class="link"><a class="newWindow" href="{{ env('APP_URL') . '/s/' . $url->token }}"
+                                                            target="_blank">{{ env('APP_URL') . '/s/' . $url->token }} <i class="mdi mdi-open-in-new"></i></a></td>
 
                                         <td>{{ $url->created_at }}</td>
                                         <td>{{ $url->updated_at }}</td>
@@ -36,7 +33,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
+
                     @else
                         <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
                     @endif

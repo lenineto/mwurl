@@ -15,11 +15,10 @@
                 </div>
             @endisset
         </div>
-
-        @if ( Auth::check() )
             <div class="container-fluid mt-2 mt-md-5">
                 <div class="row justify-content-center mt-2 pt-2">
                     <div class="table-responsive-sm mb-5">
+                        @if(count($urls))
                         <h3 class="ml-1 mb-3">Registered URLs</h3>
                         <table class="table table-striped">
                             <thead>
@@ -34,9 +33,9 @@
                             <tbody>
                             @foreach($urls as $url)
                                 <tr>
-                                    <td class="link">{{ $url->long_url }}</td>
+                                    <td class="link">{{ $url->external }}</td>
                                     <td class="link"><a href=" {{ route('url.edit', $url->id) }}">
-                                            {{ env('APP_URL') . '/s/' . $url->url_token }}</a></td>
+                                            {{ env('APP_URL') . '/s/' . $url->token }}</a></td>
 
                                     <td class="d-none d-lg-table-cell">{{ $url->created_at }}</td>
                                     <td class="d-none d-lg-table-cell">{{ $url->updated_at }}</td>
@@ -51,11 +50,11 @@
                             @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
+                        @endif
                     </div>
-
                 </div>
             </div>
-        @endif
-        </div>
     </section>
 @endsection
