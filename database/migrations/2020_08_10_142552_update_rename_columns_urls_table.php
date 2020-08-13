@@ -14,8 +14,8 @@ class UpdateRenameColumnsUrlsTable extends Migration
     public function up()
     {
         Schema::table('urls', function (Blueprint $table) {
-           $table->renameColumn('long_url', 'external');
-           $table->renameColumn('url_token', 'token');
+            $table->renameColumn('long_url', 'external');
+            $table->renameColumn('url_token', 'token');
         });
     }
 

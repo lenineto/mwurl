@@ -15,10 +15,10 @@
                 </div>
             @endisset
         </div>
-            <div class="container-fluid mt-2 mt-md-5">
-                <div class="row justify-content-center mt-2 pt-2">
-                    <div class="table-responsive-sm mb-5">
-                        @if(count($urls))
+        <div class="container-fluid mt-2 mt-md-5">
+            <div class="row justify-content-center mt-2 pt-2">
+                <div class="table-responsive-sm mb-5">
+                    @if(count($urls))
                         <h3 class="ml-1 mb-3">Registered URLs</h3>
                         <table class="table table-striped">
                             <thead>
@@ -50,11 +50,11 @@
                             @endforeach
                             </tbody>
                         </table>
-                        @else
-                            <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
-                        @endif
-                    </div>
+                    @else
+                        <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
+                    @endif
                 </div>
             </div>
+        </div>
     </section>
 @endsection

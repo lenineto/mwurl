@@ -19,8 +19,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>
 <!-- END PAGE HEADER -->
@@ -28,8 +26,6 @@
 <div class="container-fluid">
     @yield('content')
 </div>
-
-
 
 @include('layouts.partials.default_footer')
 </body>

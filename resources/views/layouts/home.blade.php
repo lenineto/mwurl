@@ -3,7 +3,6 @@
 
 @include('layouts.partials.default_header')
 <body>
-
 <!-- START HOME  -->
 <section class="home-bg-color" id="home">
     <div class="container">
@@ -12,7 +11,7 @@
                 <h1 class="mt-3 pt-2 home-title">Let's short that long link</h1>
                 <p class="home-subtitle mx-auto pt-2">Short as many URLs as you want. Free of charge.</p>
                 <div class="mt-5">
-                    <a href="/dashboard" class="btn btn-custom">Login or SignUp</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-custom">Login or SignUp</a>
                 </div>
                 <div class="">
                     <img src="/images/home.png" alt="" class="img-fluid center-block home-dashboard">
@@ -27,7 +26,6 @@
 </div>
 
 <!-- END HOME -->
-
 <!-- HOME NAVBAR -->
 <section>
     <div class="container homenav">
@@ -43,7 +41,6 @@
     </div>
 </section>
 <!-- END HOME NAVBAR -->
-
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -53,8 +50,5 @@
 <script src="/js/menu.init.js"></script>
 <!--common script for all pages-->
 <script src="/js/jquery.app.js"></script>
-
-
-
 </body>
 </html>

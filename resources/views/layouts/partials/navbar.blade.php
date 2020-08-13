@@ -86,7 +86,7 @@
             <ul class="navigation-menu menu-right">
                 @if (Auth::check())
                     <li class="mobile-none"><a href="javascript: void(0);"
-                          onclick="document.getElementById('mw-logout').submit();">{{ __('Logout') }}</a>
+                                               onclick="document.getElementById('mw-logout').submit();">{{ __('Logout') }}</a>
                     </li>
                 @else
                     <li class="mobile-none">

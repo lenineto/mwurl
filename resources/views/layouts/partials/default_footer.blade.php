@@ -11,9 +11,15 @@
                         </div>
                         <div class="float-right">
                             <ul class="list-inline social pb-0">
-                                <li class="list-inline-item pl-2"><a href="#" class="text-white"><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item pl-2"><a href="#" class="text-white"><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item pl-2"><a href="#" class="text-white"><i class="mdi mdi-instagram"></i></a></li>
+                                <li class="list-inline-item pl-2">
+                                    <a href="#" class="text-white"><i class="mdi mdi-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item pl-2">
+                                    <a href="#" class="text-white"><i class="mdi mdi-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item pl-2">
+                                    <a href="#" class="text-white"><i class="mdi mdi-instagram"></i></a>
+                                </li>
                             </ul>
                         </div>
                     </div>

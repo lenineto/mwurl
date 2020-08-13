@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Url;
+use App\Http\Requests\UrlRequest;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 use Illuminate\View\View;
-use Throwable;
 
 class UrlController extends Controller
 {
@@ -17,6 +16,7 @@ class UrlController extends Controller
      * Display the list of URLs for authenticated users
      * @return View
      * @noinspection PhpUndefinedMethodInspection
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function index()
     {
@@ -34,55 +34,48 @@ class UrlController extends Controller
 
     /**
      * Store a newly created URL
+     * @param UrlRequest $urlRequest
      * @return RedirectResponse|void
      */
-    public function store()
+    public function store(UrlRequest $urlRequest)
     {
-         request()->validate([
-           'original_url' => 'required|active_url',
-        ]);
-
-       try {
-            Url::create(
-                [
-                    'token' => $this->makeToken(),
-                    'user_id' => Auth::user()->id,
-                    'external' => request()->original_url,
-                    'enabled' => true
-                ]
-            );
-        } catch ( Throwable $exception ) {
-          abort( 409, "Short URL token must be unique");
-       }
-         return redirect()->route('url.index');
+        Url::create(
+            [
+                'token' => $urlRequest->urltoken,
+                'user_id' => Auth::user()->id,
+                'external' => $urlRequest->original_url,
+                'enabled' => $urlRequest->enabled
+            ]
+        );
+        return redirect()->route('url.index');
     }
 
     /**
      * Shows the URL edit form
      * @param Url $url
-     * @return View
+     * @return View|void
      * @noinspection PhpUndefinedMethodInspection
      */
     public function edit(Url $url)
     {
-        return view('dashboard.url.edit')->withUrl($url);
+        if ($url->isOwner()) {
+            return view('dashboard.url.edit')->withUrl($url);
+        }
+        abort(401, 'Unauthorized request');
     }
 
     /**
      * Update the URL and redirects to the URL list
      * @param Url $url
+     * @param UrlRequest $urlRequest
      * @return RedirectResponse
      */
-    public function update(Url $url)
+    public function update(Url $url, UrlRequest $urlRequest)
     {
-        request()->validate([
-            'original_url' => 'required|active_url'
-        ]);
-
         $url->fill([
-            'external'  => request()->original_url,
-            'token' => $this->makeToken(),
-            'enabled'   => request()->enabled ? true : false
+            'external'  => $urlRequest->original_url,
+            'token' => $urlRequest->urltoken,
+            'enabled' => $urlRequest->enabled
         ]);
         $url->save();
 
@@ -97,7 +90,7 @@ class UrlController extends Controller
      */
     public function destroy(Url $url)
     {
-        if ($this->isOwner($url)) {
+        if ($url->isOwner()) {
             $url->delete();
             return redirect()->route('url.index');
         }
@@ -144,7 +137,7 @@ class UrlController extends Controller
      */
     public function disable(Url $url)
     {
-        if ($this->isOwner($url)) {
+        if ($url->isOwner()) {
             $url->disable();
             return redirect()->route('url.index');
         }
@@ -158,7 +151,7 @@ class UrlController extends Controller
      */
     public function enable(Url $url)
     {
-        if ($this->isOwner($url)) {
+        if ($url->isOwner()) {
             $url->enable();
             return redirect()->route('url.index');
         }
@@ -179,29 +172,4 @@ class UrlController extends Controller
         return redirect()->to($url->external . $queryString);
     }
 
-    /**
-     * Pass the sanitized token back or generate a random one
-     * @return Stringable|string
-     */
-    protected function makeToken()
-    {
-        if (request()->token) {
-            $token = Str::of(request()->token)
-                ->replaceMatches('/(http|https):/', '')
-                ->slug('');
-        } else {
-            $token = Str::slug(Str::random(9), '-');
-        }
-        return $token;
-    }
-
-    /**
-     * Check the authenticated user owns the current URL
-     * @param Url $url
-     * @return bool
-     */
-    protected function isOwner(Url $url): bool
-    {
-        return Auth::user() == $url->owner;
-    }
 }

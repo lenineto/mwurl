@@ -7,12 +7,9 @@
 @section('content')
     <section id="search">
         <div class="container">
-
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center p-3 mt-4">
-                <h3 class="section-title pt-3">Search Active URLs</h3>
-
-
+                    <h3 class="section-title pt-3">Search Active URLs</h3>
                     <div class="custom-form pb-5">
                         <form method="post" action="{{ route('url.list.public') }}">
                             <!--suppress HtmlFormInputWithoutLabel -->
@@ -27,7 +24,6 @@
                                 <input type="submit" class="submitBnt btn btn-custom" value="{{ __('Search URLs') }}">
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

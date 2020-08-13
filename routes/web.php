@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UrlController;
+use Illuminate\Support\Facades\Route;
 
 /**  Defining the namespace to get Laravel's default auth routes working */
 Route::namespace('App\Http\Controllers')->group(function () {
@@ -14,7 +15,7 @@ Route::get('/s/{url:token}', [UrlController::class, 'redirect'])->name('redirect
 /** Protected routes */
 Route::middleware('auth')->group( function () {
     /** Dashboard routes */
-    Route::get('/dashboard', [UrlController::class, 'index'])->name('page.show.dashboard')->defaults('slug', 'dashboard');
+    Route::get('/dashboard', [UrlController::class, 'index'])->name('dashboard')->defaults('slug', 'dashboard');
     Route::get('/dashboard/url/search', [UrlController::class, 'search'])->name('url.search.private');
     Route::get('/dashboard/url/{url}/disable', [UrlController::class, 'disable'])->name('url.disable');
     Route::get('/dashboard/url/{url}/enable', [UrlController::class, 'enable'])->name('url.enable');

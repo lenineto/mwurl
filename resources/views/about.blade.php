@@ -9,7 +9,7 @@
     <div class="container mb-5">
         <div class="row-cols-1 mt-5">
             <img alt="mw-logo" src="/images/mw-logo-mobile.svg" width="200">
-             <h2>This is a moore-wilson task assignment</h2>
+            <h2>This is a moore-wilson task assignment</h2>
         </div>
 
 

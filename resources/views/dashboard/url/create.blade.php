@@ -9,9 +9,9 @@
         @if ($errors->any())
             <div class="row justify-content-center alert-danger mb-0 mt-4">
                 <div class="col-12 text-center pt-4 pb-1">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
                 </div>
             </div>
         @endif
@@ -27,7 +27,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <input class="form-control" type="text" name="original_url" value="{{ old('original_url') }}"
-                                placeholder="Type the original (long) URL including https://" size="40" required>
+                               placeholder="Type the original (long) URL including https://" size="40" required>
                     </div>
                 </div>
                 <div id="shorturl" class="row justify-content-center showhide mt-3 align-items-center">
@@ -35,24 +35,33 @@
                         <span>{{ env('APP_URL') . '/s/' }}</span>
                     </div>
                     <div class="col-12 col-md-8 pl-1 mr-0">
-                        <input type="hidden" name="token_">
-                        <input class="form-control" type="text" name="token" value="{{ old('token') }}"
-                                  placeholder="Type the desired short token" size="26" required>
+                        <input class="form-control" type="text" name="urltoken" id="urltoken" value="{{  old('token') }}"
+                               placeholder="Type the desired short token" size="26" required>
+                        <input type="hidden" name="urltoken_">
+                    </div>
+                </div>
+                <div class="row justify-content-end mt-4">
+                    <div class="col-12 col-md-6">
+                        <input type="checkbox" name="enabled" id="enabled" checked>
+                        <label  class="label" for="enabled">
+                            {{ __('Enabled') }}
+                        </label>
                     </div>
                 </div>
                 <div class="row justify-content-end mt-3">
-                    <div class="col-12 col-md-8">
-                        <input type="checkbox" name="remember" id="remember" onclick="showhide('shorturl')">
-                        <label class="label" for="remember">
+                    <div class="col-12 col-md-6">
+                        <input type="checkbox" name="random" id="random"
+                               {{ old('random') ? 'checked' : '' }} onclick="showhide('shorturl')">
+                        <label  class="label" for="random">
                             {{ __('Random URL') }}
                         </label>
                     </div>
                 </div>
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-12 col-md-6">
-                            <button class="btn btn-custom btn-block" type="submit">{{ __('Create URL') }}</button>
-                        </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12 col-md-6">
+                        <button class="btn btn-custom btn-block" type="submit">{{ __('Create URL') }}</button>
                     </div>
+                </div>
             </form>
 
         </div>
