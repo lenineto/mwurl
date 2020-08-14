@@ -14,7 +14,7 @@ class UpdateUserIdOnUrlsTable extends Migration
     public function up()
     {
         Schema::table('urls', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->change();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
