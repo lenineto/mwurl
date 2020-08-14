@@ -51,7 +51,9 @@
                             </tbody>
                         </table>
                     @else
-                        <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
+                        @isset($token)
+                            <h3>There are no URLs Matching &ldquo;{{ $token }}&rdquo;</h3>
+                        @endisset
                     @endif
                 </div>
             </div>

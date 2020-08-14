@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed owner
  * @method static where(string $string, bool $true)
  * @method static create(array $array)
+ * @method static firstOrFail()
  */
 
 class Url extends Model

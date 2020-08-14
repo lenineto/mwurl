@@ -39,7 +39,7 @@
         <div class="container homenav bg-light">
             <div class="row justify-content-center pt-2 mt-1 ">
                 <div class="col-12 md-10 text-center">
-                    <h3>{{ __(('Welcome back, ')) }} {{ Auth::user()->name }}</h3>
+                    <h3>{{ __(('Welcome back, ')) }}{{ Auth::user()->name }}</h3>
                 </div>
             </div>
             <div class="row justify-content-center align-content-center mt-4">
