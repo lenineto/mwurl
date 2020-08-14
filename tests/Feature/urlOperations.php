@@ -6,6 +6,7 @@ use App\Url;
 use App\User;
 use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class urlOperations extends TestCase
@@ -111,6 +112,7 @@ class urlOperations extends TestCase
     /**
      * @param User $user
      * @param Url $url
+     * @return TestResponse
      */
     protected function deleteUrl(User $user, Url $url)
     {
