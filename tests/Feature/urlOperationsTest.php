@@ -5,12 +5,14 @@ namespace Tests\Feature;
 use App\Url;
 use App\User;
 use Exception;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
-class urlOperations extends TestCase
+class urlOperationsTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * Test if an authenticated user can create URLs
      * @return void
@@ -18,9 +20,13 @@ class urlOperations extends TestCase
      */
     public function test_user_can_create_url_with_token()
     {
+
         $user = factory(User::class)->create();
 
         $token = Str::slug(Str::random(9), '');
+
+        //var_dump($user);
+        //var_dump($token);
 
         $this->createUrl($user, $token);
 
@@ -29,8 +35,10 @@ class urlOperations extends TestCase
         ]);
 
         /** Clean it up */
+        /*
         Url::firstOrFail()->where('token', $token)->delete();
         $user->delete();
+        */
     }
 
     public function test_url_can_only_be_delete_by_owner()
@@ -40,8 +48,8 @@ class urlOperations extends TestCase
         $token1 = $token = Str::slug(Str::random(9), '');
         $token2 = $token = Str::slug(Str::random(9), '');
 
-        var_dump($token1);
-        var_dump($token2);
+        //var_dump($token1);
+        //var_dump($token2);
 
         $this->createUrl($user1, $token1);
         $this->createUrl($user2, $token2);
@@ -81,8 +89,10 @@ class urlOperations extends TestCase
         ]);
 
         /** Clean it up */
+        /*
         $user1->delete();
         $user2->delete();
+        */
     }
 
     /**
@@ -91,10 +101,12 @@ class urlOperations extends TestCase
      */
     protected function createUrl(User $user, string $token): void
     {
+
         $this->actingAs($user)
             ->get(route('url.create'))
             ->assertOk()
             ->assertViewIs('dashboard.url.create');
+
 
         $this->actingAs($user)
             ->post(route('url.store'),
@@ -107,7 +119,9 @@ class urlOperations extends TestCase
                 ])
             ->assertRedirect(route('url.index'))
             ->assertSessionHasNoErrors();
+
     }
+
 
     /**
      * @param User $user

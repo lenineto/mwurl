@@ -5,11 +5,14 @@ namespace Tests\Feature;
 
 use App\User;
 use Exception;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
-class protectedRoutes extends TestCase
+class protectedRoutesTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test if an anonymous user have access to the dashboard. Should redirect to /login
      * @return void
@@ -44,7 +47,7 @@ class protectedRoutes extends TestCase
             ->assertSee('Welcome back, ' . $user->name);
 
         /** Clean it up */
-        $user->delete();
+       // $user->delete();
 
     }
 

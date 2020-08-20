@@ -13,9 +13,14 @@ class UpdateRenameColumnsUrlsTable extends Migration
      */
     public function up()
     {
-        Schema::table('urls', function (Blueprint $table) {
-            $table->renameColumn('long_url', 'external');
-            $table->renameColumn('url_token', 'token');
+        /** Work around for SQLite can only rename 1 column  */
+        collect ([
+            ['long_url', 'external'],
+            ['url_token', 'token']
+            ])->map(function ($column) {
+            Schema::table('urls', function (Blueprint $table) use ($column) {
+                $table->renameColumn($column[0], $column[1]);
+            });
         });
     }
 
@@ -26,9 +31,14 @@ class UpdateRenameColumnsUrlsTable extends Migration
      */
     public function down()
     {
-        Schema::table('urls', function (Blueprint $table) {
-            $table->renameColumn('external', 'long_url');
-            $table->renameColumn('token', 'url_token');
+        /** Work around for SQLite can only rename 1 column  */
+        collect ([
+            ['external', 'long_url'],
+            ['token', 'url_token']
+        ])->map(function ($column) {
+            Schema::table('urls', function (Blueprint $table) use ($column) {
+                $table->renameColumn($column[0], $column[1]);
+            });
         });
     }
 }
